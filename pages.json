@@ -1,0 +1,489 @@
+{
+  "pages": [
+    {
+      "path": "pages/tabbar/home",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/tabbar/find",
+      "style": {
+        "navigationBarTitleText": "%tabbar.classify%",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/tabbar/message",
+      "style": {
+        "navigationBarTitleText": "%tabbar.message%"
+      }
+    },
+    {
+      "path": "pages/tabbar/cart",
+      "style": {
+        "navigationBarTitleText": "%tabbar.cart%"
+      }
+    },
+    {
+      "path": "pages/tabbar/mine",
+      "style": {
+        "navigationBarTitleText": "%tabbar.mine%"
+      }
+    },
+    {
+      "path": "pages/tabbar/pointMall",
+      "style": {
+        "navigationBarTitleText": "%tabbar.pointMall%",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/point/leaderboard",
+      "style": {
+        "navigationBarTitleText": "%point.leaderBoard%"
+      }
+    },
+    {
+      "path": "pages/point/point",
+      "style": {
+        "navigationBarTitleText": "%point.pointList%",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/billing/billingDetail",
+      "style": {
+        "navigationBarTitleText": "%billing.BillingDetail%",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/login/login",
+      "style": {
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/forget/forget",
+      "style": {
+        "navigationBarTitleText": "%forget.forget%"
+      }
+    },
+    {
+      "path": "pages/forget/forget_entrance",
+      "style": {
+        "navigationBarTitleText": "%index.entrance%"
+      }
+    },
+    {
+      "path": "pages/sign/sign",
+      "style": {
+        "navigationBarTitleText": "%sign.sign%"
+      }
+    },
+    {
+      "path": "pages/protocol/protocol",
+      "style": {
+        "navigationBarTitleText": "%protocol.protocol%"
+      }
+    },
+    {
+      "path": "pages/details/details",
+      "style": {
+        "navigationBarTitleText": "%details.details%"
+      }
+    },
+    {
+      "path": "pages/logisticsTrack/index",
+      "style": {
+        "navigationBarTitleText": "%logisticsTrack.logisticsTrack%"
+      }
+    },
+    {
+      "path": "pages/order/logisticsTrack",
+      "style": {
+        "navigationBarTitleText": "%logisticsTrack.logisticsTrack%"
+      }
+    },
+    {
+      "path": "pages/orderTms/logisticsTrack",
+      "style": {
+        "navigationBarTitleText": "%logisticsTrack.logisticsTrack%"
+      }
+    },
+    {
+      "path": "pages/orderWms/logisticsTrack",
+      "style": {
+        "navigationBarTitleText": "%logisticsTrack.logisticsTrack%"
+      }
+    },
+    {
+      "path": "pages/inquiry/inquiry",
+      "style": {
+        "navigationBarTitleText": "%inquiry.inquiry%"
+      }
+    },
+    {
+      "path": "pages/factory/factory",
+      "style": {
+        "navigationBarTitleText": "%factory.factory%",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/financialService/financialService",
+      "style": {
+        "navigationBarTitleText": "%financialService.financialService%",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/financialService/financialService",
+      "style": {
+        "navigationBarTitleText": "%financialService.financialService%",
+        "enablePullDownRefresh": true
+      }
+    },
+
+    {
+      "path": "pages/shop/shop",
+      "style": {
+        "navigationBarTitleText": "%shop.shop%",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/details/address",
+      "style": {
+        "navigationBarTitleText": "%details.details%"
+      }
+    },
+    {
+      "path": "pages/boutique/boutique",
+      "style": {
+        "navigationBarTitleText": "%boutique.boutique%",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/special/special",
+      "style": {
+        "navigationBarTitleText": "%special.special%",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/order/order",
+      "style": {
+        "navigationBarTitleText": "%order.order%"
+      }
+    },
+    {
+      "path": "pages/order/orderDetail",
+      "style": {
+        "navigationBarTitleText": "%order.orderDetail%"
+      }
+    },
+    {
+      "path": "pages/order/cartDetail",
+      "style": {
+        "navigationBarTitleText": "%order.cartDetail%"
+      }
+    },
+    {
+      "path": "pages/order/complete",
+      "style": {
+        "navigationBarTitleText": "订单完成"
+      }
+    },
+
+    {
+      "path": "pages/orderTms/order",
+      "style": {
+        "navigationBarTitleText": "%order.order%"
+      }
+    },
+    {
+      "path": "pages/orderTms/orderDetail",
+      "style": {
+        "navigationBarTitleText": "%order.orderDetail%"
+      }
+    },
+    {
+      "path": "pages/orderTms/cartDetail",
+      "style": {
+        "navigationBarTitleText": "%order.cartDetail%"
+      }
+    },
+    {
+      "path": "pages/orderTms/complete",
+      "style": {
+        "navigationBarTitleText": "订单完成"
+      }
+    },
+    {
+      "path": "pages/orderWms/order",
+      "style": {
+        "navigationBarTitleText": "%order.order%"
+      }
+    },
+
+    {
+      "path": "pages/orderWms/orderDetail",
+      "style": {
+        "navigationBarTitleText": "%order.orderDetail%"
+      }
+    },
+    {
+      "path": "pages/orderWms/cartDetail",
+      "style": {
+        "navigationBarTitleText": "%order.cartDetail%"
+      }
+    },
+    {
+      "path": "pages/orderWms/complete",
+      "style": {
+        "navigationBarTitleText": "订单完成"
+      }
+    },
+    {
+      "path": "pages/protocol/protocol",
+      "style": {
+        "navigationBarTitleText": "隐私协议"
+      }
+    },
+    {
+      "path": "pages/order/orderList",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "navigationBarTitleText": "%order.orderList%"
+      }
+    },
+    {
+      "path": "pages/orderTms/orderList",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "navigationBarTitleText": "%order.orderList%"
+      }
+    },
+    {
+      "path": "pages/orderWms/orderList",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true,
+        "navigationBarTitleText": "%order.orderList%"
+      }
+    },
+    {
+      "path": "pages/information/information",
+      "style": {
+        "navigationBarTitleText": "%information.information%"
+      }
+    },
+    {
+      "path": "pages/certified/certified",
+      "style": {
+        "navigationBarTitleText": "%certified.certified%"
+      }
+    },
+    {
+      "path": "pages/inquiry/inquiry_manage",
+      "style": {
+        "navigationBarTitleText": "%inquiry.manage%",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/inquiry/inquiry_manage_details",
+      "style": {
+        "navigationBarTitleText": "%information.information%"
+      }
+    },
+    {
+      "path": "pages/bankCard/bankCard",
+      "style": {
+        "navigationBarTitleText": "添加银行卡"
+      }
+    },
+    {
+      "path": "pages/feedback/feedback",
+      "style": {
+        "navigationBarTitleText": "%feedback.feedback%"
+      }
+    },
+    {
+      "path": "pages/set/set",
+      "style": {
+        "navigationBarTitleText": "%Set Up%"
+      }
+    },
+    {
+      "path": "pages/open_shop/open_shop",
+      "style": {
+        "navigationBarTitleText": "%openShop.openShop%"
+      }
+    },
+    {
+      "path": "pages/focus/focus",
+      "style": {
+        "navigationBarTitleText": "%focus.focus%",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/collect/collect",
+      "style": {
+        "navigationBarTitleText": "%collect.collect%",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/topic/topic",
+      "style": {
+        "navigationBarTitleText": "%topic.topic%",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/topic/topic_details",
+      "style": {
+        "navigationBarTitleText": "%topic.details%"
+      }
+    },
+    {
+      "path": "pages/bell/bell",
+      "style": {
+        "navigationBarTitleText": "%bell.bell%"
+      }
+    },
+    {
+      "path": "pages/webview/webview"
+    },
+    {
+      "path": "pages/search/search",
+      "style": {
+        "navigationBarTitleText": "%search.search%",
+        "enablePullDownRefresh": true
+      }
+    },
+
+    {
+      "path": "pages/Address/index",
+      "style": {
+        "navigationBarTitleText": "地址管理",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/service_module/customer_service/customer_service",
+      "style": {
+        "navigationBarTitleText": "%customerService.customerService%",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/Admission/index",
+      "style": {
+        "navigationBarTitleText": "申请入驻",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/service/tms",
+      "style": {
+        "navigationBarTitleText": "物流服务",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/service/wms",
+      "style": {
+        "navigationBarTitleText": "仓储服务",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/service/tmsDetail",
+      "style": {
+        "navigationBarTitleText": "详情",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/service/fms",
+      "style": {
+        "navigationBarTitleText": "金融服务",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/service/dtc",
+      "style": {
+        "navigationBarTitleText": "数字化转型",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/differentSku/index",
+      "style": {
+        "navigationBarTitleText": "产品列表"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "数城科技 ",
+    "navigationBarBackgroundColor": "#fff",
+    "backgroundColor": "#fff",
+    "app-plus": {
+      "background": "#fff"
+    }
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#2E5BB3",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/tabbar/home",
+        "iconPath": "static/tabbar/home/home0.png",
+        "selectedIconPath": "static/tabbar/home/home.png",
+        "text": "%tabbar.home%"
+      },
+      {
+        "pagePath": "pages/tabbar/find",
+        "iconPath": "static/tabbar/find/find0.png",
+        "selectedIconPath": "static/tabbar/find/find.png",
+        "text": "分类"
+      },
+      {
+        "pagePath": "pages/tabbar/message",
+        "iconPath": "static/tabbar/find/find0.png",
+        "selectedIconPath": "static/tabbar/find/find.png",
+        "text": "%tabbar.message%"
+      },
+
+      {
+        "pagePath": "pages/tabbar/cart",
+        "iconPath": "static/tabbar/message/message0.png",
+        "selectedIconPath": "static/tabbar/message/message.png",
+        "text": "%tabbar.cart%"
+      },
+      {
+        "pagePath": "pages/tabbar/mine",
+        "iconPath": "static/tabbar/mine/mine0.png",
+        "selectedIconPath": "static/tabbar/mine/mine.png",
+        "text": "%tabbar.mine%"
+      }
+    ]
+  },
+  "easycom": {
+    "autoscan": true,
+    "^u-(.*)": "@/uni_modules/uview-ui/components/u-$1/u-$1.vue"
+  }
+}
