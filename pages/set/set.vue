@@ -21,9 +21,9 @@
           :width="`100%`"
         ></commonButton>
       </view>
-      <view style="width: 100%">
+      <!-- <view style="width: 100%">
         <commonButton :text="$t('注销用户')" @click="quit" style="margin: 10rpx 10rpx" :width="`100%`"></commonButton>
-      </view>
+      </view> -->
       <u-picker :show="show" :columns="locales" @confirm="confirmColumns" @cancel="cancelColumns"></u-picker>
       <u-picker
         :show="showCurrency"

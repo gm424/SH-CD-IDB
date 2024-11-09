@@ -1,6 +1,6 @@
 <template>
   <view class="container">
-    <u-navbar :placeholder="true" :bgColor="bgColor" :titleStyle="{ color: '#fff' }" fixed>
+    <u-navbar :placeholder="true" :bgColor="navBarBgColor" :titleStyle="{ color: '#fff' }" fixed>
       <view class="u-nav-slot" slot="left">
         <!-- <u-image
           width="158rpx"
@@ -35,8 +35,7 @@
       </view>
     </u-navbar>
     <!-- 修改背景部分 -->
-    <view class="bg">
-      <!-- 添加轮播图作为背景 -->
+    <view class="bg" :style="{ background: currentGradient }">
       <swiper
         class="bg-swiper"
         :autoplay="true"
@@ -46,177 +45,145 @@
         @change="handleSwiperChange"
       >
         <swiper-item v-for="(item, index) in promoList" :key="index" @click="handlePromoClick(item)">
-          <image :src="item.image" mode="aspectFill" class="bg-image" />
+          <image :src="item.image" class="bg-image" />
         </swiper-item>
       </swiper>
 
       <!-- 添加指示点 -->
-      <view class="swiper-dots">
+      <!-- <view class="swiper-dots">
         <view
           v-for="(item, index) in promoList"
           :key="index"
           class="dot"
           :class="{ active: currentSwiperIndex === index }"
         ></view>
-      </view>
+      </view> -->
     </view>
-
-    <view class="home">
-      <!-- 精品馆 -->
-      <view style="width: 100%">
-        <view class="nation-concent">
-          <view class="nation_viewes" v-for="(item, index) in boutiqueList" :key="index" @click="routeCoutryList(item)">
-            <u-image
-              width="60rpx"
-              height="60rpx"
-              :src="item.icon"
-              :fade="true"
-              mode="aspectFill"
-              duration="450"
-              :lazy-load="true"
-              shape="circle"
-            >
-              <template v-slot:loading>
-                <u-loading-icon></u-loading-icon>
-              </template>
-              <view slot="error" style="font-size: 24rpx">{{ $t('failedToLoad') }}</view>
-            </u-image>
-            <text class="grid-text u-line-2" style="word-break: inherit; color: #000">{{ item.title }}</text>
-          </view>
-        </view>
-      </view>
-      <!-- 合作方 -->
-      <view class="alliance partner-section">
-        <view class="partner-grid">
-          <view
-            v-for="(item, index) in PartnerList"
-            :key="index"
-            class="partner-card animate__animated animate__fadeInUp"
-            :style="{
-              animationDelay: index * 0.1 + 's',
-              '--hover-color': getPartnerColor(index),
-            }"
-            @click="routeDetail(item)"
+    <!-- 精品馆 -->
+    <view style="width: 100%; display: flex; justify-content: center">
+      <view class="nation-concent">
+        <view class="nation_viewes" v-for="(item, index) in boutiqueList" :key="index" @click="routeCoutryList(item)">
+          <u-image
+            width="60rpx"
+            height="60rpx"
+            :src="item.icon"
+            :fade="true"
+            mode="aspectFill"
+            duration="450"
+            :lazy-load="true"
+            shape="circle"
           >
-            <view class="partner-icon-wrapper">
-              <view class="">
-                <u-image
-                  width="75rpx"
-                  height="75rpx"
-                  :src="require('@/static/catalog/' + item.icon)"
-                  :fade="true"
-                  mode="aspectFill"
-                  duration="450"
-                >
-                  <template v-slot:loading>
-                    <u-loading-icon></u-loading-icon>
-                  </template>
-                </u-image>
-              </view>
-            </view>
-
-            <view class="partner-content">
-              <text class="partner-title">{{ item.title }}</text>
-            </view>
-          </view>
-        </view>
-      </view>
-      <!--  
-     
-      <view class="order" @click="handleService">
-        <div class="order-content">
-          <text class="text1" :style="appLanguage === 'en' ? 'margin-bottom: 0rpx' : ''">服务产品</text>
-          <text class="text2" v-if="appLanguage !== 'en'">金融、物流、海外仓</text>
-        </div>
-        <u-image
-          width="120rpx"
-          height="120rpx"
-          radius="12rpx"
-          :src="order"
-          :fade="true"
-          mode="aspectFill"
-          duration="850"
-          :lazy-load="true"
-          style="flex: 1; display: flex; align-items: center"
-        >
-          <template v-slot:loading>
-            <u-loading-icon></u-loading-icon>
-          </template>
-          <view slot="error" style="font-size: 24rpx">{{ $t('failedToLoad') }}</view>
-        </u-image> </view
-      >-->
-
-      <!--<view class="promo-swiper">
-        <swiper
-          class="swiper-box"
-          :indicator-dots="true"
-          :autoplay="true"
-          :interval="3000"
-          :duration="500"
-          :circular="true"
-          indicator-active-color="#4B79E4"
-          indicator-color="rgba(75,121,228,0.3)"
-        >
-          <swiper-item v-for="(item, index) in promoList" :key="index" @click="handlePromoClick(item)">
-            <view class="swiper-item">
-              <image :src="item.image" mode="aspectFill" class="promo-image" />
-              <view class="promo-content" v-if="item.title || item.desc">
-                <text class="promo-title">{{ item.title }}</text>
-                <text class="promo-desc">{{ item.desc }}</text>
-              </view>
-            </view>
-          </swiper-item>
-        </swiper>
-      </view>-->
-
-      <!-- 买卖家入口 -->
-      <view class="grid">
-        <!-- 左侧买家入口保持不变 -->
-        <view class="grid-l" @click="routerFactory">
-          <view class="grid-l-t-text">
-            <text class="tit">供应商入驻</text>
-
-            <u-button :text="$t('tabbar.button')" type="primary" class="buyer-btn"></u-button>
-          </view>
-          <u-image width="80rpx" height="80rpx" :src="buyer" mode="aspectFill" :fade="true" duration="450">
             <template v-slot:loading>
               <u-loading-icon></u-loading-icon>
             </template>
+            <view slot="error" style="font-size: 24rpx">{{ $t('failedToLoad') }}</view>
           </u-image>
+          <text class="grid-text u-line-2" style="word-break: inherit; color: #000">{{ item.title }}</text>
+        </view>
+      </view>
+    </view>
+    <view class="home">
+      <!-- 合作方 -->
+      <view class="alliance partner-section">
+        <!-- 修改合作伙伴标题部分 -->
+        <view class="section-header">
+          <view class="header-main">
+            <view class="header-title">
+              <text class="title-text">合作伙伴</text>
+              <view class="title-decoration"></view>
+            </view>
+            <text class="header-subtitle">携手共创跨境新未来</text>
+          </view>
+          <view class="header-more">
+            <text>更多</text>
+            <u-icon name="arrow-right" size="24" color="#666"></u-icon>
+          </view>
         </view>
 
-        <!-- 右侧改为四个小图标 -->
-        <view class="grid-r">
-          <Tools></Tools>
+        <view class="partner-grid">
+          <view
+            v-for="(item, index) in partnerList"
+            :key="index"
+            class="partner-card animate__animated animate__fadeInUp"
+            :style="{ '--delay': index * 0.1 + 's', '--color': item.color }"
+            @click="routeDetail(item)"
+          >
+            <view class="card-decoration">
+              <view class="decoration-circle"></view>
+              <view class="decoration-dots"></view>
+            </view>
+
+            <view class="partner-icon">
+              <u-image width="40rpx" height="40rpx" :src="item.logo" mode="aspectFit" :fade="true" duration="450">
+                <template v-slot:loading>
+                  <u-loading-icon></u-loading-icon>
+                </template>
+              </u-image>
+              <text class="partner-name">{{ item.title }}</text>
+            </view>
+
+            <view class="partner-content">
+              <text class="partner-type">{{ item.type }}</text>
+            </view>
+
+            <view class="partner-features">
+              <view class="feature-tag" v-for="(tag, tIndex) in item.features.slice(0, 2)" :key="tIndex">
+                {{ tag.text }}
+              </view>
+            </view>
+          </view>
         </view>
       </view>
 
-      <view class="boutique" v-if="boutiqueList != null && boutiqueList.length > 0">
-        <!-- <u-image width="100%" height="96rpx" :src="boutique" :fade="true" mode="aspectFill" duration="450"
-					:lazy-load="true">
-					<template v-slot:loading>
-						<u-loading-icon></u-loading-icon>
-					</template>
-					<view slot="error" style="font-size: 24rpx;">{{$t('failedToLoad')}}</view>
-				</u-image>
-				<view class="alliance-tit-l boutique_tit">
-					<img :src="alliance_icon">
-					<text>{{$t('Boutique Museum')}}</text>
-				</view>
-				-->
-        <!-- <view class="alliance-tit" style="margin-bottom: 0;padding-top: 24rpx;">
-					<view class="alliance-tit-l">
-						<img :src="alliance_icon">
-						<text>{{$t('Boutique Museum')}}</text>
-					</view>
-				</view> -->
+      <!-- 修改快捷服务部分 -->
+      <view class="alliance">
+        <!-- 修改常用工具标题部分 -->
+        <view class="section-header">
+          <view class="header-main">
+            <view class="header-title">
+              <text class="title-text">一站式服务</text>
+              <view class="title-decoration"></view>
+            </view>
+            <text class="header-subtitle">便捷工具，助力发展</text>
+          </view>
+        </view>
+        <view class="grid">
+          <!-- 左侧买家入口保持不变 -->
+          <view class="grid-l" @click="routerFactory">
+            <view class="grid-l-t-text">
+              <text class="tit">供应商入驻</text>
+            </view>
+            <u-button :text="$t('tabbar.button')" type="primary" class="buyer-btn"></u-button>
+            <u-image width="80rpx" height="80rpx" :src="buyer" mode="aspectFill" :fade="true" duration="450">
+              <template v-slot:loading>
+                <u-loading-icon></u-loading-icon>
+              </template>
+            </u-image>
+          </view>
+        </view>
+        <view class="quick-services">
+          <view
+            class="service-item"
+            v-for="(item, index) in serviceList"
+            :key="index"
+            @click="handleServiceClick(item)"
+          >
+            <u-icon :name="item.icon" :color="item.color" size="65"></u-icon>
+            <text class="service-name">{{ item.title }}</text>
+          </view>
+        </view>
       </view>
 
       <!-- 常用工具 -->
       <view class="alliance" v-if="toolsList != null && toolsList.length > 0">
-        <view class="alliance-tit m0" style="padding-top: 28rpx; padding-left: 20rpx">
-          <view class="alliance-tit-l">
-            <text>{{ $t('Common tool') }}</text>
+        <!-- 修改常用工具标题部分 -->
+        <view class="section-header">
+          <view class="header-main">
+            <view class="header-title">
+              <text class="title-text">{{ $t('Common tool') }}</text>
+              <view class="title-decoration"></view>
+            </view>
+            <text class="header-subtitle">便捷工具，助力发展</text>
           </view>
         </view>
 
@@ -267,6 +234,75 @@
           </view>
         </scroll-view>
       </view>
+
+      <!--  
+     
+      <view class="order" @click="handleService">
+        <div class="order-content">
+          <text class="text1" :style="appLanguage === 'en' ? 'margin-bottom: 0rpx' : ''">服务产品</text>
+          <text class="text2" v-if="appLanguage !== 'en'">金融、物流、海外仓</text>
+        </div>
+        <u-image
+          width="120rpx"
+          height="120rpx"
+          radius="12rpx"
+          :src="order"
+          :fade="true"
+          mode="aspectFill"
+          duration="850"
+          :lazy-load="true"
+          style="flex: 1; display: flex; align-items: center"
+        >
+          <template v-slot:loading>
+            <u-loading-icon></u-loading-icon>
+          </template>
+          <view slot="error" style="font-size: 24rpx">{{ $t('failedToLoad') }}</view>
+        </u-image> </view
+      >-->
+
+      <!--<view class="promo-swiper">
+        <swiper
+          class="swiper-box"
+          :indicator-dots="true"
+          :autoplay="true"
+          :interval="3000"
+          :duration="500"
+          :circular="true"
+          indicator-active-color="#4B79E4"
+          indicator-color="rgba(75,121,228,0.3)"
+        >
+          <swiper-item v-for="(item, index) in promoList" :key="index" @click="handlePromoClick(item)">
+            <view class="swiper-item">
+              <image :src="item.image" mode="aspectFill" class="promo-image" />
+              <view class="promo-content" v-if="item.title || item.desc">
+                <text class="promo-title">{{ item.title }}</text>
+                <text class="promo-desc">{{ item.desc }}</text>
+              </view>
+            </view>
+          </swiper-item>
+        </swiper>
+      </view>-->
+
+      <view class="boutique" v-if="boutiqueList != null && boutiqueList.length > 0">
+        <!-- <u-image width="100%" height="96rpx" :src="boutique" :fade="true" mode="aspectFill" duration="450"
+					<template v-slot:loading>
+						<u-loading-icon></u-loading-icon>
+					</template>
+					<view slot="error" style="font-size: 24rpx;">{{$t('failedToLoad')}}</view>
+				</u-image>
+				<view class="alliance-tit-l boutique_tit">
+					<img :src="alliance_icon">
+					<text>{{$t('Boutique Museum')}}</text>
+				</view>
+				-->
+        <!-- <view class="alliance-tit" style="margin-bottom: 0;padding-top: 24rpx;">
+					<view class="alliance-tit-l">
+						<img :src="alliance_icon">
+						<text>{{$t('Boutique Museum')}}</text>
+					</view>
+				</view> -->
+      </view>
+
       <!-- 供应商 -->
       <!--<view class="alliance" v-if="supplierList != null && supplierList.length > 0">
         <view class="alliance-tit m0" style="padding-top: 24rpx">
@@ -302,82 +338,84 @@
       </view>-->
     </view>
     <!-- 推荐 -->
-    <view class="alliance" v-if="recommendList != null && recommendList.length > 0">
-      <view class="alliance-tit b0" style="padding-left: 10px">
-        <view class="alliance-tit-l">
-          <img :src="alliance_icon" />
-          <text>{{ $t('for you') }}</text>
+    <view class="alliance" v-if="recommendList != null && recommendList.length > 0" style="padding: 0px 10px">
+      <!-- 修改热门推荐标题部分 -->
+      <view class="section-header" style="padding: 0px 15px">
+        <view class="header-main">
+          <view class="header-title">
+            <text class="title-text">{{ $t('for you') }}</text>
+            <view class="title-decoration"></view>
+          </view>
+          <text class="header-subtitle">精选优质好物</text>
         </view>
       </view>
 
-      <view class="waterfall_container">
-        <view class="waterfall">
-          <view
-            v-for="(item, index) in recommendList"
-            @click="routerGoodsDetails(item.spu)"
-            :key="item.id"
-            class="waterfall-item"
-          >
-            <view class="waterfall-item__image">
-              <u-image
-                width="334rpx"
-                height="354rpx"
-                radius="12rpx"
-                :src="item.images[0]"
-                :fade="true"
-                mode="aspectFill"
-                duration="450"
-                :lazy-load="true"
-              >
-                <template v-slot:loading>
-                  <u-loading-icon></u-loading-icon>
-                </template>
-                <view slot="error" style="font-size: 24rpx">{{ $t('failedToLoad') }}</view>
-              </u-image>
-              <img :src="hot" class="hot" />
-            </view>
-            <view class="waterfall-item__ft" style="padding: 5px">
-              <view class="waterfall-item__ft__desc uv-line-1" v-if="false">
-                <view class="value">{{ item.desc }}</view>
-              </view>
-              <view class="waterfall-item__ft__title">
-                <view class="value u-line-2">{{ item.name }}</view>
-              </view>
-              <view class="waterfall-item__ft__price">
-                <view class="waterfall-item-price-discuss" v-if="item.price <= 0 && item.wholesalePrice <= 0">
-                  <view class="val">
-                    <text></text>
-                    <text>{{ $t('Price negotiable') }}</text>
-                  </view>
-                </view>
-                <view class="waterfall-item-price" v-else>
-                  <view class="val-retail" v-if="item.price > 0">
-                    <view class="val">
-                      <text>{{ $t('Retail price') }}：</text>
-                      <text>￥ {{ item.price }}</text>
-                    </view>
-                    <view class="num" v-if="false"> 8000+{{ $t('people paid') }} </view>
-                  </view>
-
-                  <view class="val val-wholesale" v-if="item.wholesalePrice > 0">
-                    <view>
-                      <text>{{ $t('Wholesale price') }}：</text>
-                      <text>￥ {{ item.wholesalePrice }}</text>
-                    </view>
-                  </view>
-                </view>
-              </view>
-              <view class="waterfall-item__ft__price" v-if="false">
-                <view class="val">
-                  <text>￥</text>
-                  <text>.1.299.999</text>
-                </view>
-                <view class="num"> 8000+人付款 </view>
-              </view>
-            </view>
-          </view></view
+      <view class="waterfall">
+        <view
+          v-for="(item, index) in recommendList"
+          @click="routerGoodsDetails(item.spu)"
+          :key="item.id"
+          class="waterfall-item"
         >
-      </view>
+          <view class="waterfall-item__image">
+            <u-image
+              width="334rpx"
+              height="354rpx"
+              radius="12rpx"
+              :src="item.images[0]"
+              :fade="true"
+              mode="aspectFill"
+              duration="450"
+              :lazy-load="true"
+            >
+              <template v-slot:loading>
+                <u-loading-icon></u-loading-icon>
+              </template>
+              <view slot="error" style="font-size: 24rpx">{{ $t('failedToLoad') }}</view>
+            </u-image>
+            <img :src="hot" class="hot" />
+          </view>
+          <view class="waterfall-item__ft" style="padding: 5px">
+            <view class="waterfall-item__ft__desc uv-line-1" v-if="false">
+              <view class="value">{{ item.desc }}</view>
+            </view>
+            <view class="waterfall-item__ft__title">
+              <view class="value u-line-2">{{ item.name }}</view>
+            </view>
+            <view class="waterfall-item__ft__price">
+              <view class="waterfall-item-price-discuss" v-if="item.price <= 0 && item.wholesalePrice <= 0">
+                <view class="val">
+                  <text></text>
+                  <text>{{ $t('Price negotiable') }}</text>
+                </view>
+              </view>
+              <view class="waterfall-item-price" v-else>
+                <view class="val-retail" v-if="item.price > 0">
+                  <view class="val">
+                    <text>{{ $t('Retail price') }}：</text>
+                    <text>￥ {{ item.price }}</text>
+                  </view>
+                  <view class="num" v-if="false"> 8000+{{ $t('people paid') }} </view>
+                </view>
+
+                <view class="val val-wholesale" v-if="item.wholesalePrice > 0">
+                  <view>
+                    <text>{{ $t('Wholesale price') }}：</text>
+                    <text>￥ {{ item.wholesalePrice }}</text>
+                  </view>
+                </view>
+              </view>
+            </view>
+            <view class="waterfall-item__ft__price" v-if="false">
+              <view class="val">
+                <text>￥</text>
+                <text>.1.299.999</text>
+              </view>
+              <view class="num"> 8000+人付款 </view>
+            </view>
+          </view>
+        </view></view
+      >
     </view>
   </view>
 </template>
@@ -400,7 +438,7 @@ export default {
         width: '332rpx',
         height: '48rpx',
         padding: '6rpx 12rpx',
-        background: 'rgba(255, 255, 255, 0.2)', // 修改搜索框背景为半透明
+        background: 'rgba(255, 255, 255, 0.2)', // 修改搜索框背景为半透
         borderColor: 'transparent !important',
         backdropFilter: 'blur(10px)', // 添加毛玻璃效果
       },
@@ -428,23 +466,6 @@ export default {
       // 精品馆
       boutiqueList: [
         {
-          cid: 32,
-          authorId: 1,
-          type: 'boutique',
-          category: '0',
-          icon: 'https://flagcdn.com/w160/kr.png',
-          title: '韩国站',
-          description: 'Korean Sector',
-          target: '/pages/differentSku/index',
-          content: null,
-          images: null,
-          sort: 1,
-          warehouse_id: '5',
-          local: 'zh',
-          createTime: 1692944972,
-          updateTime: 1698287728,
-        },
-        {
           cid: 33,
           authorId: 1,
           type: 'boutique',
@@ -462,12 +483,30 @@ export default {
           updateTime: 1698287735,
         },
         {
+          cid: 32,
+          authorId: 1,
+          type: 'boutique',
+          category: '0',
+          icon: 'https://flagcdn.com/w160/kr.png',
+          title: '中东',
+          description: 'Korean Sector',
+          target: '/pages/differentSku/index',
+          content: null,
+          images: null,
+          sort: 1,
+          warehouse_id: '5',
+          local: 'zh',
+          createTime: 1692944972,
+          updateTime: 1698287728,
+        },
+
+        {
           cid: 34,
           authorId: 1,
           type: 'boutique',
           category: '0',
           icon: 'https://flagcdn.com/w160/us.png',
-          title: '美国站',
+          title: '俄罗斯',
           warehouse_id: '7',
           description: 'US Sector',
           target: '/pages/differentSku/index',
@@ -484,7 +523,7 @@ export default {
           type: 'boutique',
           category: '0',
           icon: 'https://flagcdn.com/w160/es.png',
-          title: '西班牙站',
+          title: '墨西哥',
           warehouse_id: '8',
           description: 'Spanish Sector',
           target: '/pages/differentSku/index',
@@ -772,7 +811,7 @@ export default {
           title: '海关申报',
           backgroundColor: '#eae7fe',
           description: 'Online exchange rate conversion',
-          target: 'https://www.singlewindow.sh.cn/winx-portal/#/home',
+          target: 'https://www.singlewindow.cn/#/',
           content: null,
           images: null,
           sort: 0,
@@ -907,29 +946,32 @@ export default {
         },
         {
           image: 'https://example.com/banner3.jpg',
-          title: '物流配送网络',
-          desc: '覆盖全球的物流体系',
+          title: '物流送网络',
+          desc: '覆盖球的物流体系',
           url: '/pages/logistics/index',
         },
       ],
       promoList: [
         {
-          image: `http://jwerp.oss-cn-shenzhen.aliyuncs.com/upload/hot2_1726827870425.jpg`, // 替换为实际的图片地址
-          title: '全球物流服务',
-          desc: '专业的跨境物流解决方案',
-          url: '/pages/logistics/index',
-        },
-        {
-          image: `http://jwerp.oss-cn-shenzhen.aliyuncs.com/upload/hot1_1726827782367.png`,
-          title: '金融支持',
-          desc: '灵活的跨境支付方案',
-          url: '/pages/finance/index',
-        },
-        {
-          image: `http://jwerp.oss-cn-shenzhen.aliyuncs.com/upload/hot3_1726827799363.jpg`,
+          image: `http://jwerp.oss-cn-shenzhen.aliyuncs.com/upload/13_1731147929540.png`,
           title: '海外仓储',
           desc: '覆盖全球的仓储网络',
           url: '/pages/warehouse/index',
+          bgColor: `linear-gradient(to bottom,rgba(141, 177, 241, 0.9),rgba(141, 177, 241, 0.2))`,
+        },
+        {
+          image: `http://jwerp.oss-cn-shenzhen.aliyuncs.com/upload/12_1731147915265.png`,
+          title: '金融支持',
+          desc: '灵活的跨境支付方案',
+          url: '/pages/finance/index',
+          bgColor: `linear-gradient(to bottom,rgba(168, 214, 255, 0.9),rgba(168, 214, 255, 0.2))`,
+        },
+        {
+          image: `http://jwerp.oss-cn-shenzhen.aliyuncs.com/upload/11_1731147901246.png`, // 替换为实际的图片地址
+          title: '全球物流服务',
+          desc: '专业的跨境物流解决方案',
+          url: '/pages/logistics/index',
+          bgColor: `linear-gradient(to bottom,rgba(135, 177, 249, 0.9),rgba(135,177, 249, 0.2))`,
         },
       ],
       quickLinks: [
@@ -955,6 +997,80 @@ export default {
         },
       ],
       currentSwiperIndex: 0,
+      currentPartnerIndex: 0,
+      partnerList: [
+        {
+          id: 1,
+          title: '综保区',
+          type: '',
+          logo: 'https://flagcdn.com/w160/es.png',
+          color: '#FFB5B5',
+          features: [{ text: '保税仓储' }, { text: '通关服务' }],
+          target: '/pages/differentSku/index',
+        },
+        {
+          id: 2,
+          title: '迈奇',
+          type: '',
+          logo: 'https://flagcdn.com/w160/es.png',
+          color: '#95E1D3',
+          features: [{ text: '平台运营' }, { text: '全球营销' }],
+          target: '/pages/differentSku/index',
+        },
+        {
+          id: 3,
+          title: '云川',
+          type: '',
+          logo: 'https://flagcdn.com/w160/es.png',
+          color: '#FCE38A',
+          features: [{ text: '采购管理' }, { text: '物流配送' }],
+          target: '/pages/differentSku/index',
+        },
+        {
+          id: 4,
+          title: '易货',
+          type: '',
+          logo: 'https://flagcdn.com/w160/es.png',
+          color: '#F38181',
+          features: [{ text: '跨境支付' }, { text: '资金安全' }],
+          target: '/pages/differentSku/index',
+        },
+      ],
+      serviceList: [
+        {
+          title: '物流服务',
+          icon: 'car',
+          color: '#4B79E4',
+          url: '/pages/service/tms',
+        },
+        {
+          title: '海外仓',
+          icon: 'bell',
+          color: '#FF9A9E',
+          url: '/pages/service/wms',
+        },
+        {
+          title: '金融服务',
+          icon: 'checkbox-mark',
+          color: '#FCE38A',
+          url: '/pages/service/fms',
+        },
+        {
+          title: '数字链转型',
+          icon: 'file-text',
+          color: '#95E1D3',
+          url: '/pages/service/dtc',
+        },
+      ],
+      currentGradient: `linear-gradient(to bottom,rgba(135, 177, 249, 0.9),rgba(135,177, 249, 0.2))`,
+      imageColors: [], // 存储每张图片的主色调
+      scrollTop: 0,
+      navBarBgColor: 'transparent',
+      // 定义导航栏渐变的起始和结束位置
+      navBarTransitionPoint: {
+        start: 0,
+        end: 200, // 可以根据需要调整这个值
+      },
     };
   },
   components: {
@@ -1048,12 +1164,14 @@ export default {
       });
     },
     routeDetail(item) {
-      uni.$u.route({
-        url: item.target,
-        params: {
-          tag: item.title,
-        },
-      });
+      setTimeout(() => {
+        uni.$u.route({
+          url: item.target,
+          params: {
+            tag: item.title,
+          },
+        });
+      }, 300);
     },
     routeCoutryList(item) {
       uni.$u.route({
@@ -1122,7 +1240,7 @@ export default {
       let goodsId = '';
       let params = {
         page: 1,
-        pageSize: 10,
+        page_size: 10,
       };
       that.sortList = [];
       IndexServer.getClientGoods(goodsId, params, {
@@ -1220,9 +1338,102 @@ export default {
     },
     handleSwiperChange(e) {
       this.currentSwiperIndex = e.detail.current;
+      console.log('切换', this.currentSwiperIndex, this.imageColors);
+      this.currentGradient = this.promoList[this.currentSwiperIndex].bgColor;
+    },
+    handlePartnerSwiperChange(e) {
+      this.currentPartnerIndex = e.detail.current;
+    },
+    handleServiceClick(item) {
+      uni.navigateTo({
+        url: item.url,
+      });
+    },
+    // 图片加载完成时提取颜色
+    onImageLoad(e, index) {
+      const img = e.target;
+
+      this.extractImageColor(img.src, index);
+    },
+    // 提取图片主色调
+    extractImageColor(imageUrl, index) {
+      const img = new Image();
+      img.crossOrigin = 'Anonymous';
+
+      img.onload = () => {
+        console.log('提取', this.imageColors);
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        ctx.drawImage(img, 0, 0);
+
+        // 只获取图片顶部区域的颜色
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height / 3).data;
+
+        let r = 0,
+          g = 0,
+          b = 0;
+        let count = 0;
+
+        // 增加采样间隔以提高性能
+        for (let i = 0; i < imageData.length; i += 20) {
+          r += imageData[i];
+          g += imageData[i + 1];
+          b += imageData[i + 2];
+          count++;
+        }
+
+        r = Math.round(r / count);
+        g = Math.round(g / count);
+        b = Math.round(b / count);
+
+        // 存储颜色
+        this.imageColors[index] = { r, g, b };
+
+        // 如果是当前显示的图片，立即更新渐变
+        if (index === this.currentSwiperIndex) {
+          this.updateGradient({ r, g, b });
+        }
+      };
+
+      img.src = imageUrl;
+    },
+    // 更新渐变背景
+    updateGradient(color) {
+      const { r, g, b } = color;
+      // 修改渐变的透明度和范围
+      this.currentGradient = `linear-gradient(to bottom,
+        rgba(${r}, ${g}, ${b}, 0.9),
+        rgba(${r}, ${g}, ${b}, 0.2)
+      )`;
+      console.log('颜色', this.currentGradient);
+    },
+    // 更新导航栏背景色
+    updateNavBarBgColor() {
+      const { start, end } = this.navBarTransitionPoint;
+      const scrollTop = this.scrollTop;
+
+      if (scrollTop <= start) {
+        // 顶部时完全透明
+        this.navBarBgColor = 'transparent';
+      } else if (scrollTop >= end) {
+        // 滚动到指定位置时显示完整背景色
+        this.navBarBgColor = 'rgba(24, 154, 185, 1)';
+      } else {
+        // 滚动过程中渐变
+        const alpha = (scrollTop - start) / (end - start);
+        this.navBarBgColor = `rgba(24, 154, 185, ${alpha})`;
+      }
     },
   },
   computed: {},
+  onPageScroll(e) {
+    this.scrollTop = e.scrollTop;
+    this.updateNavBarBgColor();
+  },
 };
 </script>
 
@@ -1281,20 +1492,26 @@ export default {
   // 背景区域样式优化
   .bg {
     width: 100%;
-    height: 435rpx;
+    height: 605rpx;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     z-index: 0;
+    padding: 40px 10px 60px 10px;
+    clip-path: ellipse(100% 100% at 50% 0%);
+    box-shadow: 0 0 20px rgba(46, 130, 168, 0.5);
+    transition: background 0.8s ease; // 添加过渡效果
 
     .bg-swiper {
       width: 100%;
-      height: 100%;
-
+      height: 80%;
+      border-radius: 10px;
+      border-radius: 10px;
       .bg-image {
         width: 100%;
         height: 100%;
+        border-radius: 10px;
         object-fit: cover;
       }
     }
@@ -1314,8 +1531,8 @@ export default {
     // 添加指示点样式
     .swiper-dots {
       position: absolute;
-      right: 30rpx;
-      bottom: 30rpx;
+      right: 40rpx;
+      top: 330rpx;
       display: flex;
       gap: 12rpx;
       padding: 8rpx 16rpx;
@@ -1348,16 +1565,16 @@ export default {
 
 .home {
   width: 100%;
-  margin-top: 324rpx;
+  margin-top: 480rpx;
   padding: 10px;
   border-radius: 12px;
   background-color: #fff;
   .grid {
-    height: 245rpx;
+    height: 145rpx;
     display: flex;
     border-radius: 12rpx 12rpx 0 0;
     background-color: #fff;
-    margin-top: 24rpx;
+
     .grid-l {
       width: 50%;
       height: 100%;
@@ -1527,10 +1744,11 @@ export default {
   margin: 10rpx 0rpx;
 }
 .nation-concent {
-  width: 100%;
+  width: 90%;
   display: flex;
-  margin-top: 20px;
+  top: 420rpx;
   border-radius: 10rpx;
+  position: absolute;
   padding: 20rpx 0rpx 10rpx 0rpx;
   flex-wrap: wrap;
 }
@@ -1546,7 +1764,8 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-bottom: 24rpx;
+
+  padding: 0px 8px;
   border-radius: 12rpx;
   @at-root &-tit {
     display: flex;
@@ -1663,105 +1882,101 @@ export default {
       }
     }
   }
-  .waterfall_container {
-    background-color: #fff;
+
+  .waterfall {
+    @include flex();
     width: 100%;
-    padding: 10px;
-    .waterfall {
-      @include flex();
-      width: 100%;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      padding: 0px 8px 10px 8px;
-      background-color: #f5f5f5;
-      .waterfall-item {
-        border-radius: 6px;
-        width: 334rpx;
-        background-color: #fff;
-        margin-top: 10px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0px 4px 10px 4px;
+    background-color: #fff;
+    .waterfall-item {
+      border-radius: 6px;
+      width: 334rpx;
+      background-color: #fff;
+      margin-top: 10px;
 
-        .waterfall-item__image {
-          position: relative;
+      .waterfall-item__image {
+        position: relative;
 
-          .hot {
-            width: 48rpx;
-            height: 48rpx;
-            position: absolute;
-            top: 10rpx;
-            right: 12rpx;
-          }
+        .hot {
+          width: 48rpx;
+          height: 48rpx;
+          position: absolute;
+          top: 10rpx;
+          right: 12rpx;
+        }
+      }
+    }
+
+    .waterfall-item__ft {
+      padding: 0 0 24rpx 0;
+      background: #fff;
+
+      &__title {
+        margin: 4rpx 0;
+
+        .value {
+          font-size: 28rpx;
+          color: #333;
         }
       }
 
-      .waterfall-item__ft {
-        padding: 0 0 24rpx 0;
-        background: #fff;
-
-        &__title {
-          margin: 4rpx 0;
-
-          .value {
-            font-size: 28rpx;
-            color: #333;
-          }
-        }
-
-        &__desc .value {
-          font-size: 16rpx;
-          color: #ebdddd;
-          background: #ffa6a6;
-          text-align: center;
-        }
-
-        &__price {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-
-          .val {
-            color: #ff5f00;
-            font-size: 28rpx;
-            margin-top: 2px;
-          }
-
-          .num {
-            color: #999;
-            font-size: 20rpx;
-          }
-        }
-
-        &__btn {
-          padding: 10px 0;
-        }
+      &__desc .value {
+        font-size: 16rpx;
+        color: #ebdddd;
+        background: #ffa6a6;
+        text-align: center;
       }
 
-      .waterfall-item-price {
-        width: 100%;
-      }
-
-      .waterfall-item-price-discuss {
+      &__price {
         display: flex;
         justify-content: space-between;
-        width: 100%;
-      }
+        align-items: center;
 
-      .val-retail {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
+        .val {
+          color: #ff5f00;
+          font-size: 28rpx;
+          margin-top: 2px;
+        }
 
         .num {
-          color: #aaa;
+          color: #999;
           font-size: 20rpx;
         }
       }
 
-      .val-wholesale {
-        display: flex;
-        justify-content: space-between;
-        color: #ee4b36;
-        font-size: 24rpx;
+      &__btn {
+        padding: 10px 0;
       }
+    }
+
+    .waterfall-item-price {
+      width: 100%;
+    }
+
+    .waterfall-item-price-discuss {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .val-retail {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+
+      .num {
+        color: #aaa;
+        font-size: 20rpx;
+      }
+    }
+
+    .val-wholesale {
+      display: flex;
+      justify-content: space-between;
+      color: #ee4b36;
+      font-size: 24rpx;
     }
   }
 }
@@ -1904,7 +2119,7 @@ export default {
   }
 }
 
-// 添加动画
+// 添加动
 @keyframes shine {
   0% {
     left: -100%;
@@ -1931,161 +2146,143 @@ export default {
 }
 
 .partner-section {
+  margin: 24rpx 0;
+  padding: 0 20rpx;
+
   .partner-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 16rpx;
-    padding: 16rpx;
-    background: #fff;
-    border-radius: 24rpx;
+    gap: 20rpx;
+    padding: 20rpx 0;
   }
 
   .partner-card {
     position: relative;
-    padding: 20rpx;
-    background: #fff;
-    border-radius: 16rpx;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: all 0.3s ease;
+    padding: 16rpx;
+    border-radius: 20rpx;
+    background: #f9f5f5;
     overflow: hidden;
+    transition: all 0.3s ease;
+    animation-delay: var(--delay);
 
-    &::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, var(--hover-color), transparent);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
+    // 悬浮效果
+    &:hover {
+      transform: translateY(-6rpx);
+      box-shadow: 0 10rpx 20rpx rgba(0, 0, 0, 0.08);
 
-    &:active {
-      transform: scale(0.98);
-
-      &::before {
-        opacity: 0.1;
+      .partner-icon {
+        transform: scale(1.1) rotate(10deg);
       }
 
-      .icon-bg {
-        transform: translateY(-4rpx);
+      .decoration-circle {
+        transform: scale(1.2);
+      }
+
+      .feature-tag {
+        background: var(--color);
+        color: #fff;
+      }
+    }
+
+    // 装饰元素
+    .card-decoration {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.1;
+
+      .decoration-circle {
+        position: absolute;
+        right: -30rpx;
+        top: -30rpx;
+        width: 120rpx;
+        height: 120rpx;
+        border-radius: 50%;
+        background: var(--color);
+        transition: all 0.3s ease;
+      }
+
+      .decoration-dots {
+        position: absolute;
+        left: 10rpx;
+        bottom: 10rpx;
+        width: 60rpx;
+        height: 60rpx;
+        background-image: radial-gradient(circle, var(--color) 2px, transparent 3px);
+        background-size: 12px 12px;
       }
     }
   }
 
-  .partner-icon-wrapper {
-    position: relative;
-    margin-bottom: 12rpx;
-
-    .icon-bg {
-      position: relative;
-      width: 72rpx;
-      height: 72rpx;
-      background: #fff;
-      border-radius: 16rpx;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05);
-      transition: all 0.3s ease;
-      z-index: 2;
-    }
-
-    .decoration-circle {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 90rpx;
-      height: 90rpx;
-      border: 2rpx dashed rgba(0, 0, 0, 0.08);
-      border-radius: 50%;
-      animation: rotate 10s linear infinite;
-    }
+  .partner-icon {
+    width: 100%;
+    height: 80rpx;
+    background: rgba(var(--color), 0.1);
+    border-radius: 16rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    margin-bottom: 16rpx;
+    transition: all 0.3s ease;
+  }
+  .partner-name {
+    font-size: 26rpx;
+    font-weight: 600;
+    color: #333;
+    flex: 1;
+    margin-bottom: 4rpx;
+    display: block;
   }
 
   .partner-content {
-    text-align: center;
-    z-index: 1;
+    margin-bottom: 16rpx;
 
-    .partner-title {
-      font-size: 26rpx;
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 4rpx;
-      display: block;
-    }
-
-    .partner-desc {
+    .partner-type {
       font-size: 20rpx;
-      color: #999;
+      color: #666;
       display: block;
     }
   }
 
-  .partner-decoration {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
+  .partner-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8rpx;
 
-    .deco-dots {
-      position: absolute;
-      right: 12rpx;
-      bottom: 12rpx;
-      display: flex;
-      gap: 4rpx;
-
-      .dot {
-        width: 4rpx;
-        height: 4rpx;
-        background: rgba(0, 0, 0, 0.2);
-        border-radius: 50%;
-        animation: pulse 1.5s ease-in-out infinite;
-
-        &:nth-child(2) {
-          animation-delay: 0.2s;
-        }
-
-        &:nth-child(3) {
-          animation-delay: 0.4s;
-        }
-      }
+    .feature-tag {
+      font-size: 20rpx;
+      padding: 2rpx 12rpx;
+      border-radius: 12rpx;
+      background: #f5f5f5;
+      color: #666;
+      transition: all 0.3s ease;
     }
   }
 }
 
-// 动画
-@keyframes rotate {
+// 添加动画
+@keyframes fadeInUp {
   from {
-    transform: translate(-50%, -50%) rotate(0deg);
+    opacity: 0;
+    transform: translateY(20rpx);
   }
   to {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.2;
-  }
-  50% {
-    transform: scale(1.5);
-    opacity: 0.5;
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 .grid {
   display: flex;
-  gap: 16rpx;
-  margin-top: 24rpx;
-  padding: 0px 10px 0px 10px;
+  gap: 10rpx;
+  margin-bottom: 10px;
+
   .grid-l {
     flex: 1;
     position: relative;
     border-radius: 24rpx;
-    background: linear-gradient(135deg, #ffffff 0%, #daddf0 100%);
+    background: linear-gradient(135deg, rgba(24, 154, 185, 0.1) 20%, rgba(24, 154, 185, 0.4) 100%);
     overflow: hidden;
     transition: all 0.3s ease;
 
@@ -2257,7 +2454,7 @@ export default {
 
   // 买家入口特殊样式
   .grid-l {
-    border-left: 6rpx solid #96aee6;
+    border-left: 6rpx solid #ecedf1;
 
     &::before {
       background: linear-gradient(135deg, rgba(75, 121, 228, 0.1) 0%, rgba(46, 91, 179, 0.05) 100%);
@@ -2296,7 +2493,7 @@ export default {
   }
 }
 
-// 闪光动画
+// 闪光画
 @keyframes shine {
   0% {
     left: -100%;
@@ -2432,7 +2629,6 @@ export default {
 .tool-concent {
   width: 100%;
 
-  padding: 0px 10px; // 增加内边距
   box-sizing: border-box;
   margin: 20rpx 0;
 
@@ -2535,6 +2731,167 @@ export default {
   50% {
     transform: scale(1.5);
     opacity: 1;
+  }
+}
+
+.partner-dots {
+  position: absolute;
+  bottom: 10rpx;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 4rpx;
+  padding: 4rpx;
+  border-radius: 10rpx;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(4px);
+  z-index: 10;
+
+  .dot {
+    width: 12rpx;
+    height: 12rpx;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease;
+
+    &.active {
+      width: 24rpx;
+      border-radius: 6rpx;
+      background: #fff;
+    }
+  }
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0rpx 20rpx;
+  position: relative;
+
+  .header-main {
+    flex: 1;
+  }
+
+  .header-title {
+    display: flex;
+    align-items: center;
+    gap: 12rpx;
+    margin-bottom: 6rpx;
+    position: relative;
+
+    .title-text {
+      font-size: 36rpx;
+      font-weight: 600;
+      color: #333;
+      position: relative;
+      z-index: 1;
+
+      // 添加渐变色文字效果
+      background: linear-gradient(135deg, #333 60%, #666);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .title-decoration {
+      position: absolute;
+      left: -8rpx;
+      bottom: 4rpx;
+      width: 60rpx;
+      height: 12rpx;
+      background: linear-gradient(135deg, rgba(59, 123, 212, 0.2), rgba(59, 123, 212, 0.1));
+      border-radius: 6rpx;
+      z-index: 0;
+      animation: widthChange 3s ease-in-out infinite;
+    }
+  }
+
+  .header-subtitle {
+    font-size: 24rpx;
+    color: #999;
+    margin-left: 4rpx;
+  }
+
+  .header-more {
+    display: flex;
+    align-items: center;
+    gap: 4rpx;
+    padding: 8rpx 16rpx;
+    border-radius: 24rpx;
+    background: #f5f7fa;
+    transition: all 0.3s ease;
+
+    text {
+      font-size: 24rpx;
+      color: #666;
+    }
+
+    &:active {
+      transform: scale(0.95);
+      background: #eef0f6;
+    }
+  }
+
+  // 添加装饰性元素
+  &::after {
+    content: '';
+    position: absolute;
+    right: 20rpx;
+    top: 50%;
+    width: 160rpx;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(59, 123, 212, 0.1));
+  }
+}
+
+// 添加动画
+@keyframes widthChange {
+  0%,
+  100% {
+    width: 60rpx;
+  }
+  50% {
+    width: 80rpx;
+  }
+}
+
+.quick-services {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10rpx;
+  padding: 20rpx 0rpx;
+  background: #fff;
+  border-radius: 12rpx;
+
+  .service-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8rpx;
+    padding: 16rpx;
+    transition: all 0.3s ease;
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    .u-icon {
+      background: rgba(75, 121, 228, 0.1);
+      padding: 16rpx;
+      border-radius: 16rpx;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-4rpx);
+      }
+    }
+
+    .service-name {
+      font-size: 24rpx;
+      color: #333;
+      margin-top: 8rpx;
+    }
   }
 }
 </style>

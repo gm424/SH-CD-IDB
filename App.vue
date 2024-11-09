@@ -81,6 +81,7 @@ view {
 <style>
 page {
   background-color: #fff;
+  min-width: 230px;
 }
 
 .shadow {

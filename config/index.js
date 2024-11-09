@@ -7,7 +7,7 @@ export const DEVELOP_HOST = `http://sh.api.jiwangyun.com`;
 
 // 正式环境
 
-export const PRODUCT_HOST = `https://api.idbccmg.com`;
+export const PRODUCT_HOST = `http://sh.api.jiwangyun.com`;
 
 // 静态资源
 export const IMG_URL = 'https://vspace-1259276655.cos.ap-shanghai.myqcloud.com/vcross';

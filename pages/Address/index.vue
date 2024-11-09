@@ -182,11 +182,13 @@ export default {
 
 <style lang="scss" scoped>
 .address-container {
-  min-height: 100vh;
+  // min-height: 100vh;
+  overflow: scroll;
   background: #f5f7fa;
   padding: 20rpx;
 
   .address-list {
+    padding-bottom: 50px;
     .address-item {
       background: #fff;
       border-radius: 16rpx;

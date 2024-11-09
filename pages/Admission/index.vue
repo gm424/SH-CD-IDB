@@ -8,7 +8,7 @@
 
     <view class="form-container">
       <view class="form-header">
-        <text class="form-title">申请入驻</text>
+        <text class="form-title">欢迎成为数城科技供应商</text>
         <text class="form-subtitle">Professional Services</text>
       </view>
 
@@ -20,88 +20,79 @@
           color: '#333',
           fontWeight: '500',
           marginRight: '12rpx',
+          marginBottom: '12rpx',
         }"
         :rules="rules"
         :model="personInfoForm"
         ref="form1"
       >
-        <view class="form-group">
-          <u-form-item label="公司名称" prop="company_name" labelWidth="130">
-            <u--input
-              fontSize="28rpx"
-              color="#333"
-              :customStyle="inputStyle"
-              v-model="personInfoForm.company_name"
-              :placeholder="$t('Please enter a company_name')"
-            >
-              <template #prefix>
-                <u-icon name="home" size="36rpx" color="#2E5BB3"></u-icon>
-              </template>
-            </u--input>
-          </u-form-item>
-        </view>
+        <u-form-item label="公司名称" prop="company_name" labelWidth="130" labelPosition="top">
+          <u--input
+            fontSize="28rpx"
+            color="#333"
+            :customStyle="inputStyle"
+            v-model="personInfoForm.company_name"
+            :placeholder="$t('Please enter a company_name')"
+          >
+            <template #prefix>
+              <u-icon name="home" size="36rpx" color="#2E5BB3"></u-icon>
+            </template>
+          </u--input>
+        </u-form-item>
 
-        <view class="form-group">
-          <u-form-item label="联系人" prop="contact_person" labelWidth="130">
-            <u--input
-              fontSize="28rpx"
-              color="#333"
-              :customStyle="inputStyle"
-              v-model="personInfoForm.contact_person"
-              :placeholder="$t('Please enter your contact_person')"
-              :disabled="disabled"
-            >
-              <template #prefix>
-                <u-icon name="account" size="36rpx" color="#2E5BB3"></u-icon>
-              </template>
-            </u--input>
-          </u-form-item>
-        </view>
+        <u-form-item label="联系人" prop="contact_person" labelWidth="130" labelPosition="top">
+          <u--input
+            fontSize="28rpx"
+            color="#333"
+            :customStyle="inputStyle"
+            v-model="personInfoForm.contact_person"
+            :placeholder="$t('Please enter your contact_person')"
+            :disabled="disabled"
+          >
+            <template #prefix>
+              <u-icon name="account" size="36rpx" color="#2E5BB3"></u-icon>
+            </template>
+          </u--input>
+        </u-form-item>
 
-        <view class="form-group">
-          <u-form-item label="联系方式" prop="userInfo.contact_info" labelWidth="130">
-            <u--input
-              fontSize="28rpx"
-              color="#333"
-              :customStyle="inputStyle"
-              v-model="personInfoForm.contact_info"
-              :placeholder="$t('Please enter your contact_info')"
-              :disabled="disabled"
-            >
-              <template #prefix>
-                <u-icon name="phone" size="36rpx" color="#2E5BB3"></u-icon>
-              </template>
-            </u--input>
-          </u-form-item>
-        </view>
-        <view class="form-group">
-          <u-form-item label="业务类型" prop="type" labelWidth="130">
-            <my-dropdown
-              v-model="personInfoForm.type"
-              :options="businessTypes"
-              :placeholder="selectedType"
-              @change="handleBusinessTypeChange"
-            ></my-dropdown>
-          </u-form-item>
-        </view>
-        <view class="form-group">
-          <u-form-item label="备注" prop="remark" labelWidth="130">
-            <u--textarea
-              fontSize="28rpx"
-              color="#333"
-              :customStyle="inputStyle"
-              v-model="personInfoForm.remark"
-              :placeholder="$t('Please fill in the remark')"
-              :disabled="disabled"
-            ></u--textarea>
-          </u-form-item>
-        </view>
+        <u-form-item label="联系方式" prop="userInfo.contact_info" labelWidth="130" labelPosition="top">
+          <u--input
+            fontSize="28rpx"
+            color="#333"
+            :customStyle="inputStyle"
+            v-model="personInfoForm.contact_info"
+            :placeholder="$t('Please enter your contact_info')"
+            :disabled="disabled"
+          >
+            <template #prefix>
+              <u-icon name="phone" size="36rpx" color="#2E5BB3"></u-icon>
+            </template>
+          </u--input>
+        </u-form-item>
 
-        <view class="form-group">
-          <u-form-item label="附件" prop="attachment" labelWidth="130">
-            <MyUpload v-model="personInfoForm.attachment"></MyUpload>
-          </u-form-item>
-        </view>
+        <u-form-item label="业务类型" prop="type" labelWidth="130" labelPosition="top">
+          <my-dropdown
+            v-model="personInfoForm.type"
+            :options="businessTypes"
+            :placeholder="selectedType"
+            @change="handleBusinessTypeChange"
+          ></my-dropdown>
+        </u-form-item>
+
+        <u-form-item label="备注" prop="remark" labelWidth="130" labelPosition="top">
+          <u--textarea
+            fontSize="28rpx"
+            color="#333"
+            :customStyle="inputStyle"
+            v-model="personInfoForm.remark"
+            :placeholder="$t('Please fill in the remark')"
+            :disabled="disabled"
+          ></u--textarea>
+        </u-form-item>
+
+        <u-form-item label="附件" prop="attachment" labelWidth="130" labelPosition="top">
+          <MyUpload v-model="personInfoForm.attachment"></MyUpload>
+        </u-form-item>
       </u--form>
 
       <view class="submit-section">

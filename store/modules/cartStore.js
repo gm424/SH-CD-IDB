@@ -8,13 +8,13 @@ export default {
   getters: {},
   mutations: {
     UPDATETOCARTCOUNT(state, data) {
-      const exitSku = _.findLast(state.cartList, (item) => {
-        return item.jsin === data.jsin;
-      });
-      if (exitSku) {
-        exitSku.count = data.count;
+      const index = state.cartList.findIndex((item) => item.id === data.id);
+      console.log('找到啦!', data.quantity);
+      if (index !== -1) {
+        // 直接更新数组中的对象（Vuex 通常能够检测到这种变化）
+        state.cartList[index].quantity = data.quantity;
+        console.log('找到啦', state.cartList[index].quantity, data.quantity);
       }
-      console.log('this.store.cartList', state.cartList);
     },
     UPDATETOCARTGOODS(state, dataList) {
       state.cartList = [];
@@ -40,27 +40,20 @@ export default {
       state.cartList = state.cartList.filter((item) => item.sku !== sku);
     },
     ADDTOCART(state, data) {
-      // const exitSku = _.findLast(state.cartList, (item) => {
-      //   return item.jsin === data.jsin;
-      // });
-      // if (exitSku) {
-      //   console.log('count', data.count, exitSku.count);
-      //   exitSku.count = exitSku.count + data.count;
-      // } else {
-      //   state.cartList.push({
-      //     jsin: data.jsin,
-      //     count: data.count,
-      //     warehouseId: '',
-      //     warehouseName: '',
-      //   });
-      // }
+      let exitSku = _.findLast(state.cartList, (item) => {
+        return item.id === data.id;
+      });
+      console.log('exitSku', exitSku);
+      if (exitSku) {
+        exitSku.quantity = exitSku.quantity + data.quantity;
+      } else {
+        state.cartList.push(data);
+      }
 
-      state.cartList.push(data);
       console.log('this.store.cartList', state.cartList);
     },
   },
   actions: {
-    // 更新购物车jsin个数
     async updateCount({ commit }, data) {
       commit('UPDATETOCARTCOUNT', data);
     },

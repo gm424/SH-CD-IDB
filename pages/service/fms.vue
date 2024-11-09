@@ -20,79 +20,70 @@
           color: '#333',
           fontWeight: '500',
           marginRight: '12rpx',
+          marginBottom: '12rpx',
         }"
         :rules="rules"
         :model="personInfoForm"
         ref="form1"
       >
-        <view class="form-group">
-          <u-form-item label="公司名称" prop="company_name" labelWidth="130">
-            <u--input
-              fontSize="28rpx"
-              color="#333"
-              :customStyle="inputStyle"
-              v-model="personInfoForm.company_name"
-              :placeholder="$t('Please enter a company_name')"
-            >
-              <template #prefix>
-                <u-icon name="home" size="36rpx" color="#2E5BB3"></u-icon>
-              </template>
-            </u--input>
-          </u-form-item>
-        </view>
+        <u-form-item label="公司名称" prop="company_name" labelWidth="130" labelPosition="top">
+          <u--input
+            fontSize="28rpx"
+            color="#333"
+            :customStyle="inputStyle"
+            v-model="personInfoForm.company_name"
+            :placeholder="$t('Please enter a company_name')"
+          >
+            <template #prefix>
+              <u-icon name="home" size="36rpx" color="#2E5BB3"></u-icon>
+            </template>
+          </u--input>
+        </u-form-item>
 
-        <view class="form-group">
-          <u-form-item label="联系人" prop="contact_person" labelWidth="130">
-            <u--input
-              fontSize="28rpx"
-              color="#333"
-              :customStyle="inputStyle"
-              v-model="personInfoForm.contact_person"
-              :placeholder="$t('Please enter your contact_person')"
-              :disabled="disabled"
-            >
-              <template #prefix>
-                <u-icon name="account" size="36rpx" color="#2E5BB3"></u-icon>
-              </template>
-            </u--input>
-          </u-form-item>
-        </view>
+        <u-form-item label="联系人" prop="contact_person" labelWidth="130" labelPosition="top">
+          <u--input
+            fontSize="28rpx"
+            color="#333"
+            :customStyle="inputStyle"
+            v-model="personInfoForm.contact_person"
+            :placeholder="$t('Please enter your contact_person')"
+            :disabled="disabled"
+          >
+            <template #prefix>
+              <u-icon name="account" size="36rpx" color="#2E5BB3"></u-icon>
+            </template>
+          </u--input>
+        </u-form-item>
 
-        <view class="form-group">
-          <u-form-item label="联系方式" prop="userInfo.contact_info" labelWidth="130">
-            <u--input
-              fontSize="28rpx"
-              color="#333"
-              :customStyle="inputStyle"
-              v-model="personInfoForm.contact_info"
-              :placeholder="$t('Please enter your contact_info')"
-              :disabled="disabled"
-            >
-              <template #prefix>
-                <u-icon name="phone" size="36rpx" color="#2E5BB3"></u-icon>
-              </template>
-            </u--input>
-          </u-form-item>
-        </view>
+        <u-form-item label="联系方式" prop="userInfo.contact_info" labelWidth="130" labelPosition="top">
+          <u--input
+            fontSize="28rpx"
+            color="#333"
+            :customStyle="inputStyle"
+            v-model="personInfoForm.contact_info"
+            :placeholder="$t('Please enter your contact_info')"
+            :disabled="disabled"
+          >
+            <template #prefix>
+              <u-icon name="phone" size="36rpx" color="#2E5BB3"></u-icon>
+            </template>
+          </u--input>
+        </u-form-item>
 
-        <view class="form-group">
-          <u-form-item label="备注" prop="remark" labelWidth="130">
-            <u--textarea
-              fontSize="28rpx"
-              color="#333"
-              :customStyle="inputStyle"
-              v-model="personInfoForm.remark"
-              :placeholder="$t('Please fill in the remark')"
-              :disabled="disabled"
-            ></u--textarea>
-          </u-form-item>
-        </view>
+        <u-form-item label="备注" prop="remark" labelWidth="130" labelPosition="top">
+          <u--textarea
+            fontSize="28rpx"
+            color="#333"
+            :customStyle="inputStyle"
+            v-model="personInfoForm.remark"
+            :placeholder="$t('Please fill in the remark')"
+            :disabled="disabled"
+          ></u--textarea>
+        </u-form-item>
 
-        <view class="form-group">
-          <u-form-item label="附件" prop="attachment" labelWidth="130">
-            <MyUpload v-model="personInfoForm.attachment"></MyUpload>
-          </u-form-item>
-        </view>
+        <u-form-item label="附件" prop="attachment" labelWidth="130" labelPosition="top">
+          <MyUpload v-model="personInfoForm.attachment"></MyUpload>
+        </u-form-item>
       </u--form>
 
       <view class="submit-section">
@@ -112,6 +103,7 @@ const LoginServer = require('@/common/store/loginServer.js');
 const Api = require('@/common/store/api.js');
 const IndexServer = require('@/common/store/indexServer.js');
 import MyUpload from '@/components/myUpload.vue';
+import MyDropdown from '@/components/my-dropdown/my-dropdown.vue';
 const host = Api.host;
 export default {
   data() {
@@ -168,12 +160,33 @@ export default {
       },
       oldUserInfo: {},
       disabled: false,
+      selectedType: '',
+      businessTypes: [
+        {
+          text: '金融',
+          value: 'jr',
+        },
+        {
+          text: '物流',
+          value: 'wl',
+        },
+        {
+          text: '仓储',
+          value: 'cc',
+        },
+        {
+          text: '电商',
+          value: 'ds',
+        },
+      ],
     };
   },
   components: {
     MyUploadAvatar,
     MyUpload,
+    MyDropdown,
   },
+  computed: {},
 
   methods: {
     submit() {
@@ -212,6 +225,11 @@ export default {
     },
     hideKeyboard() {
       uni.hideKeyboard();
+    },
+    handleBusinessTypeChange(item) {
+      this.selectedType = item.text;
+      this.personInfoForm.type = item.value;
+      console.log('选择的业务类型:', this.personInfoForm);
     },
   },
 };
@@ -437,5 +455,53 @@ export default {
   100% {
     transform: translateX(-1200px);
   }
+}
+
+:deep(.u-dropdown) {
+  .u-dropdown__menu {
+    background: #f8f9fa;
+    border: 2rpx solid #e9ecef;
+    border-radius: 12rpx;
+    padding: 24rpx 32rpx;
+    height: 88rpx;
+
+    &__item {
+      &__text {
+        font-size: 28rpx;
+        color: #333;
+      }
+    }
+  }
+
+  .u-dropdown__content {
+    border-radius: 12rpx;
+    overflow: hidden;
+    box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
+
+    .u-cell {
+      padding: 24rpx 32rpx;
+
+      &__title {
+        font-size: 28rpx;
+        color: #333;
+      }
+
+      &--hover {
+        background: #f8f9fa;
+      }
+
+      &--checked {
+        .u-cell__title {
+          color: #2e5bb3;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
+
+:deep(.u-form-item__message) {
+  padding-top: 8rpx;
+  font-size: 24rpx;
 }
 </style>

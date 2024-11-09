@@ -19,7 +19,7 @@
               <u-row>
                 <view style="display: flex; align-items: center; margin-left: -6px">
                   <u-checkbox-group
-                    @change="checkboxGroupChange(it)"
+                    @change="checkboxGroupChange(it, item)"
                     style="width: 20px"
                     v-model="item.selectGoodsValues"
                   >
@@ -73,17 +73,11 @@
         v-if="cartList.length === 0"
       >
       </u-empty>
-      <!-- 底部导航栏 -->
-      <view class="tabbar" :style="{ paddingBottom: '220rpx' }">
-        <u-row>
-          <u-col :span="8">
-            <view class="totalPrice"> 合计:￥{{ totalPrice }}元 </view></u-col
-          >
-          <u-col :span="4">
-            <commonButton :text="$t('Submit order')" @click="submitOrder"></commonButton>
-          </u-col>
-        </u-row>
-      </view>
+    </view>
+    <!-- 底部导航栏 -->
+    <view class="tabbar" :style="{ marginBottom: '100rpx' }">
+      <view class="totalPrice"> 合计:￥{{ totalPrice }}元 </view>
+      <commonButton :text="$t('Submit order')" @click="submitOrder" style="width: 120px"></commonButton>
     </view>
   </view>
 </template>
@@ -108,16 +102,19 @@ export default {
   },
   onShow() {
     this.getCartList();
+    this.cartTotalPrice();
   },
   created() {},
   computed: {},
   methods: {
     getCartList() {
+      console.log('获取原始购物车', this.$store.state.cartStore.cartList);
       this.cartList = this.$store.state.cartStore.cartList.map((item) => ({
         ...item,
         variantsChange: [],
         isChecked: false,
       }));
+
       this.cartList.forEach((cart) => {
         cart.variants.forEach((item, index) => {
           cart.variantsChange.push(cart.variables[index].values[item].name.zh_cn);
@@ -139,6 +136,7 @@ export default {
             selectGoodsValues: [],
           };
         }
+
         // 将当前产品信息添加到对应店铺的products数组中
         storeProductsMap[storeId].products.push(item);
       });
@@ -146,29 +144,15 @@ export default {
       // 将结果转化为数组形式
       this.cartList = Object.values(storeProductsMap);
       console.log('获取购物车列表', this.cartList);
-
-      this.cartList.forEach((item) => {
-        item.products = item.products.reduce((acc, item) => {
-          // 查找是否已存在相同的 SKU
-          const existingItem = acc.find((obj) => obj.sku === item.sku);
-
-          if (existingItem) {
-            // 如果找到相同 SKU，累加 quantity
-            existingItem.quantity += item.quantity;
-          } else {
-            // 如果没有找到，添加新的项
-            acc.push({ ...item });
-          }
-
-          return acc;
-        }, []);
-      });
-      console.log('获取购物车列表2', this.cartList);
     },
 
     valChange(item) {
       this.$set(this, 'cartList', this.cartList);
       this.cartTotalPrice();
+      console.log('加减', item);
+      setTimeout(() => {
+        this.$store.dispatch('updateCount', item);
+      }, 300);
     },
 
     // 提交购物车订单
@@ -201,9 +185,10 @@ export default {
     },
 
     // 选中任一checkbox时，由checkbox-group触发
-    checkboxGroupChange(it) {
+    checkboxGroupChange(it, item) {
       it.isChecked = !it.isChecked;
       this.cartTotalPrice();
+      item.isChecked = item.products.every((obj) => obj.isChecked);
     },
     checkStoreGroupChange(item) {
       console.log('选择', item);
@@ -232,7 +217,6 @@ export default {
         this.cartList.forEach((cart) => {
           cart.products.forEach((el, index) => {
             if (el.isChecked) {
-              this.$store.dispatch('updateCount', { jsin: el.jsin, count: el.quantity });
               this.totalPrice = el.price * el.quantity + this.totalPrice;
               console.log('totalPrice', this.totalPrice);
             }
@@ -248,8 +232,9 @@ export default {
 .content {
   background-color: #f7f7f7;
   text-align: center;
-  height: 100vh;
-  padding: 20rpx 20rpx;
+  min-height: 100vh;
+
+  padding: 20rpx 20rpx 200rpx 20rpx;
 }
 
 .status {
@@ -265,8 +250,10 @@ export default {
 }
 .tabbar {
   width: 100%;
-  height: 146rpx;
-  line-height: 146rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 156rpx;
   background-color: #fff;
   position: fixed;
   bottom: 0rpx;

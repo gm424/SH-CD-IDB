@@ -14,7 +14,7 @@
         <u-icon name="close" color="#999" size="32"></u-icon>
       </view>
     </view>
-    <view style="height: 70vh">
+    <view style="height: 70vh; overflow-y: scroll">
       <AddressList @choose="choose"></AddressList>
     </view>
   </u-popup>

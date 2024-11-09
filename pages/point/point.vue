@@ -266,8 +266,8 @@ export default {
       let that = this;
 
       let params = {
-        page: that.page,
-        pageSize: that.pageSize,
+        page: 1,
+        pageSize: 9999,
       };
 
       IndexServer.getRecordsList(params, {

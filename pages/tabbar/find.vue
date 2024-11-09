@@ -270,7 +270,7 @@ export default {
       let goodsId = '';
       let params = {
         page: that.page,
-        pageSize: that.pageSize,
+        page_size: that.pageSize,
       };
       if (that.categoryId) {
         params.category = that.categoryId;

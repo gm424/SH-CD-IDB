@@ -231,8 +231,8 @@ export default {
       let that = this;
       let goodsId = '';
       let params = {
-        pageNum: that.pageNum,
-        pageSize: that.pageSize,
+        page: that.pageNum,
+        page_size: that.pageSize,
         store_id: that.storeId,
       };
       indexServer.getClientGoods(goodsId, params, {

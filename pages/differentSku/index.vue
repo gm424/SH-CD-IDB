@@ -156,7 +156,7 @@ export default {
 
       let params = {
         page: that.page,
-        pageSize: that.pageSize,
+        page_size: that.pageSize,
       };
       Object.assign(
         params,
