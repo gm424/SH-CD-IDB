@@ -11,7 +11,7 @@
         @search="search"
       ></u-search>
     </view>
-    <view class="sort shadow" v-if="!isShowDefaultPage">
+    <view class="sort" v-if="!isShowDefaultPage">
       <view class="sort-item" v-for="(item, index) in sortList" :key="index" @click="routerDetails(item.id)">
         <u-image
           width="100%"
@@ -172,14 +172,16 @@ export default {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
 
     &-item {
-      width: 316rpx;
-      max-height: 472rpx;
+      width: 48%;
+      max-height: 542rpx;
       border-radius: 16rpx;
       background-color: #fff;
       margin-right: 16rpx;
       margin-bottom: 16rpx;
+      padding: 3px;
     }
 
     &-item:nth-of-type(2n) {

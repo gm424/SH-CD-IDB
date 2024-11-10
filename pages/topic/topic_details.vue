@@ -250,6 +250,8 @@ export default {
     position: fixed;
     bottom: 0;
     width: 100%;
+    max-width: 430px;
+    margin: 0 auto;
     height: 92rpx;
     background-color: #fff;
     box-shadow: 0 4rpx 14rpx rgba(218, 218, 218, 0.5);

@@ -276,7 +276,8 @@ export default {
     color: #fff;
     font-size: 30rpx;
     box-shadow: 0 4rpx 16rpx rgba(46, 91, 179, 0.3);
-
+    max-width: 430px;
+    margin: 0 auto;
     .iconfont {
       margin-right: 12rpx;
       font-size: 32rpx;

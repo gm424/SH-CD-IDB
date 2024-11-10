@@ -136,7 +136,16 @@
     <!-- 操作按钮 -->
     <!-- 待付款 选择 线下支付 -->
     <view
-      style="position: fixed; bottom: 0rpx; left: 0; width: 100%; padding: 30rpx 10rpx; background-color: #fff"
+      style="
+        position: fixed;
+        bottom: 0rpx;
+
+        width: 100%;
+        max-width: 430px;
+        margin: 0 auto;
+        padding: 30rpx 10rpx;
+        background-color: #fff;
+      "
       v-show="orderDetails.status === 2 && radiovalue === 'offLine'"
     >
       <u-row>
@@ -149,7 +158,16 @@
 
     <!-- 待付款 选择 线上支付 -->
     <view
-      style="position: fixed; bottom: 0rpx; left: 0; width: 100%; padding: 30rpx 10rpx; background-color: #fff"
+      style="
+        position: fixed;
+        bottom: 0rpx;
+
+        width: 100%;
+        max-width: 430px;
+        margin: 0 auto;
+        padding: 30rpx 10rpx;
+        background-color: #fff;
+      "
       v-show="orderDetails.status === 2 && radiovalue !== 'offLine'"
     >
       <u-row>
@@ -166,7 +184,16 @@
     </view>
     <!-- 待发货 -->
     <view
-      style="position: fixed; bottom: 0rpx; left: 0; width: 100%; padding: 30rpx 10rpx; background-color: #fff"
+      style="
+        position: fixed;
+        bottom: 0rpx;
+        max-width: 430px;
+        margin: 0 auto;
+
+        width: 100%;
+        padding: 30rpx 10rpx;
+        background-color: #fff;
+      "
       v-show="orderDetails.status === 4"
     >
       <u-row>
@@ -179,7 +206,16 @@
 
     <!-- 待审核 -->
     <view
-      style="position: fixed; bottom: 0rpx; left: 0; width: 100%; padding: 30rpx 10rpx; background-color: #fff"
+      style="
+        position: fixed;
+        bottom: 0rpx;
+        max-width: 430px;
+        margin: 0 auto;
+
+        width: 100%;
+        padding: 30rpx 10rpx;
+        background-color: #fff;
+      "
       v-show="orderDetails.status === 3"
     >
       <u-row>
@@ -192,7 +228,16 @@
 
     <!-- 已签收 -->
     <view
-      style="position: fixed; bottom: 0rpx; left: 0; width: 100%; padding: 30rpx 10rpx; background-color: #fff"
+      style="
+        position: fixed;
+        bottom: 0rpx;
+        max-width: 430px;
+        margin: 0 auto;
+
+        width: 100%;
+        padding: 30rpx 10rpx;
+        background-color: #fff;
+      "
       v-show="orderDetails.status === 6"
     >
       <u-row>
@@ -409,7 +454,10 @@ export default {
         orderServer.getOrderDetails(id, {
           success(res) {
             that.orderDetails = res.data;
+
+            console.log('that.orderDetails.items', that.orderDetails.items, res.data);
             that.orderDetails.items = that.orderDetails.items.map((cart) => {
+              console.log('cart', cart);
               return {
                 ...cart,
                 variantsChange: cart.variants.map((item, index) => {

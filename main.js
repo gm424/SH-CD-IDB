@@ -30,3 +30,6 @@ const app = new Vue({
 
 app.$mount()
 // #endif
+
+// 确保样式被正确引入
+import './uni.scss'

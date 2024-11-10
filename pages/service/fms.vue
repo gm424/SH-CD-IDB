@@ -26,7 +26,7 @@
         :model="personInfoForm"
         ref="form1"
       >
-        <u-form-item label="公司名称" prop="company_name" labelWidth="130" labelPosition="top">
+        <u-form-item label="公司名称" prop="company_name" labelWidth="230" labelPosition="top">
           <u--input
             fontSize="28rpx"
             color="#333"
@@ -40,7 +40,7 @@
           </u--input>
         </u-form-item>
 
-        <u-form-item label="联系人" prop="contact_person" labelWidth="130" labelPosition="top">
+        <u-form-item label="联系人" prop="contact_person" labelWidth="230" labelPosition="top">
           <u--input
             fontSize="28rpx"
             color="#333"
@@ -55,7 +55,7 @@
           </u--input>
         </u-form-item>
 
-        <u-form-item label="联系方式" prop="userInfo.contact_info" labelWidth="130" labelPosition="top">
+        <u-form-item label="联系方式" prop="userInfo.contact_info" labelWidth="230" labelPosition="top">
           <u--input
             fontSize="28rpx"
             color="#333"
@@ -70,7 +70,7 @@
           </u--input>
         </u-form-item>
 
-        <u-form-item label="备注" prop="remark" labelWidth="130" labelPosition="top">
+        <u-form-item label="备注" prop="remark" labelWidth="230" labelPosition="top">
           <u--textarea
             fontSize="28rpx"
             color="#333"
@@ -81,7 +81,7 @@
           ></u--textarea>
         </u-form-item>
 
-        <u-form-item label="附件" prop="attachment" labelWidth="130" labelPosition="top">
+        <u-form-item label="附件" prop="attachment" labelWidth="230" labelPosition="top">
           <MyUpload v-model="personInfoForm.attachment"></MyUpload>
         </u-form-item>
       </u--form>

@@ -54,7 +54,7 @@
           <view class="subtitle" v-if="goods.subtitle">{{ goods.subtitle }}</view>
           <view class="action-buttons">
             <view class="action-btn share" @click="handleShare">
-              <u-icon name="share" :color="goods.collects ? '#ff5f00' : '#999'" size="40rpx"></u-icon>
+              <u-icon name="share" color="#999" size="40rpx"></u-icon>
               <text>分享</text>
             </view>
             <view class="action-btn" @click="userCollection(goods.id)" v-if="!goods.collects">
@@ -552,6 +552,8 @@
 }
 
 .footer-action {
+  max-width: 430px;
+  margin: 0 auto;
   position: fixed;
   bottom: 0;
   left: 0;

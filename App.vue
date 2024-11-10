@@ -66,6 +66,7 @@ uni-page-body,
 html,
 body {
   min-height: 100%;
+  width: 100%;
 }
 
 view {
@@ -76,6 +77,43 @@ view {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* 添加uni-app根节点样式 */
+uni-app {
+  max-width: 430px;
+  height: 100%;
+  margin: 0 auto;
+  position: relative;
+  display: block;
+  background: #fff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* 确保页面容器也遵循最大宽度 */
+uni-page-wrapper,
+uni-page-body,
+uni-page {
+  max-width: 430px !important;
+  margin: 0 auto;
+}
+
+/* 确保导航栏和tabbar遵循最大宽度 */
+uni-tabbar,
+uni-page-head {
+  max-width: 430px !important;
+  left: 50% !important;
+  transform: translateX(-50%);
+  position: fixed !important;
+}
+uni-tabbar {
+  bottom: 0;
+}
+/* 修改body样式以使内容居中 */
+body {
+  display: flex;
+  justify-content: center;
+  background: #f5f7fa;
 }
 </style>
 <style>

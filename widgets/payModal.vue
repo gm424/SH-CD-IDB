@@ -7,7 +7,13 @@
     :closeable="true"
     :closeOnClickOverlay="false"
     @close="close"
-    :customStyle="{ backgroundColor: '#fff', padding: '40rpx 10rpx' }"
+    :customStyle="{
+      backgroundColor: '#fff',
+      padding: '40rpx 10rpx',
+      margin: '0 auto',
+      width: '100%',
+      maxWidth: '430px',
+    }"
     :safeAreaInsetBottom="true"
     :overlay="true"
     :overlayStyle="{ background: 'rgba(0, 0, 0, 0.2)', zIndex: '19975' }"
@@ -21,7 +27,17 @@
     </view>
 
     <!-- 操作按钮 -->
-    <view style="position: fixed; bottom: 0rpx; left: 0; width: 100%; padding: 30rpx 10rpx">
+    <view
+      style="
+        position: fixed;
+        bottom: 0rpx;
+
+        width: 100%;
+        padding: 30rpx 10rpx;
+        margin: 0 auto;
+        max-width: 430px;
+      "
+    >
       <commonButton :text="$t('Immediate payment')" @click="pay"></commonButton>
     </view>
   </u-popup>

@@ -1,5 +1,15 @@
 <template>
-  <u-popup :show="show" mode="bottom" :safeAreaInsetBottom="true" borderRadius="24">
+  <u-popup
+    :show="show"
+    mode="bottom"
+    :safeAreaInsetBottom="true"
+    borderRadius="24"
+    :customStyle="{
+      margin: '0 auto',
+      width: '100%',
+      maxWidth: '430px',
+    }"
+  >
     <view class="address-form">
       <!-- 表单头部 -->
       <view class="form-header">
@@ -40,7 +50,7 @@
           <u-form-item label="联系人国家" prop="shipping_country" borderBottom>
             <u-input
               v-model="formData.shipping_country"
-              placeholder="请输入联系人国家"
+              placeholder="请输入国家二字码"
               border="none"
               clearable
             ></u-input>
@@ -160,7 +170,18 @@ export default {
             trigger: ['blur', 'change'],
           },
         ],
-
+        shipping_country: [
+          {
+            required: true,
+            message: '请输入国家二字码，长度为2',
+            trigger: ['blur', 'change'],
+          },
+          {
+            pattern: /^1[3456789]\d{9}$/,
+            message: '请输入正确的国家二字码，长度为2',
+            trigger: ['blur', 'change'],
+          },
+        ],
         shipping_address_1: [
           {
             required: true,

@@ -1,5 +1,15 @@
 <template>
-  <u-popup :show="show" mode="bottom" :safeAreaInsetBottom="true" borderRadius="24">
+  <u-popup
+    :show="show"
+    mode="bottom"
+    :safeAreaInsetBottom="true"
+    borderRadius="24"
+    :customStyle="{
+      margin: '0 auto',
+      width: '100%',
+      maxWidth: '430px',
+    }"
+  >
     <!-- 表单头部 -->
     <view class="form-header">
       <text class="title">{{ '编辑地址' }}</text>

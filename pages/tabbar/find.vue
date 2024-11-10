@@ -44,12 +44,12 @@
               <view class="slide-content">
                 <view class="slide-header">
                   <text class="slide-title">{{ item.catName }}</text>
-                  <view class="slide-tag">{{ item.type || '热门' }}</view>
+                  <!-- <view class="slide-tag">{{ item.type || '热门' }}</view> -->
                 </view>
-                <view class="slide-footer">
+                <!-- <view class="slide-footer">
                   <text class="slide-date">{{ $u.timeFormat(item.updateTime, 'yyyy/mm/dd') }}{{ $t('release') }}</text>
                   <view class="slide-indicator">{{ currentIndex + 1 }}/{{ topicList.length }}</view>
-                </view>
+                </view> -->
               </view>
             </view>
           </swiper-item>
@@ -127,7 +127,7 @@
         </view>
       </view>
 
-      <u-divider text="上拉加载" textSize="20" v-if="showEmpty === '1' && !isShowDefaultPage"></u-divider>
+      <u-divider text="下拉加载" textSize="20" v-if="showEmpty === '1' && !isShowDefaultPage"></u-divider>
       <u-loading-icon text="加载中" textSize="20" v-if="showEmpty === '2' && !isShowDefaultPage"></u-loading-icon>
       <u-divider text="到底啦" textSize="20" v-if="showEmpty === '3' && !isShowDefaultPage"></u-divider>
       <u-empty :show="isShowDefaultPage" :text="$t('No data')" margin-top="300"></u-empty>
@@ -150,10 +150,10 @@ export default {
       topicList: [
         {
           catId: 1,
-          catName: '行业运营',
+          catName: '',
           catNameMut: null,
           parentId: 0,
-          icon: 'http://jwerp.oss-cn-shenzhen.aliyuncs.com/upload/右图_1723444405141.jpg',
+          icon: 'http://jwerp.oss-cn-shenzhen.aliyuncs.com/upload/13_1731233817867.png',
           sort: 0,
           type: 'topic',
           createTime: 1692667813,
@@ -161,10 +161,10 @@ export default {
         },
         {
           catId: 5,
-          catName: '发布会',
+          catName: '',
           catNameMut: null,
           parentId: 0,
-          icon: 'http://jwerp.oss-cn-shenzhen.aliyuncs.com/upload/右图_1723444560030.jpg',
+          icon: 'http://jwerp.oss-cn-shenzhen.aliyuncs.com/upload/14_1731233825265.png',
           sort: 123,
           type: 'topic',
           createTime: 1692958671,
@@ -172,10 +172,10 @@ export default {
         },
         {
           catId: 4,
-          catName: '人工智能',
+          catName: '',
           catNameMut: null,
           parentId: 0,
-          icon: 'https://img.cifnews.com/dev/20240516/e308a74e5f9e4685b18583cc19f46fb2.png?x-oss-process=style/article-pc-list',
+          icon: 'http://jwerp.oss-cn-shenzhen.aliyuncs.com/upload/15_1731233834512.png',
           sort: 234,
           type: 'topic',
           createTime: 1692690817,

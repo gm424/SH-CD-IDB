@@ -218,10 +218,10 @@ const getClientMarketingSpecial = (param, callBack) => {
  * 获取商品列表
  */
 const getClientGoods = (goodsId, params, callBack) => {
-  // if (!Validate.checkTokenAndValidity()) {
-  //   uni.hideLoading();
-  //   return;
-  // }
+  if (!Validate.checkTokenAndValidity()) {
+    uni.hideLoading();
+    return;
+  }
   Http.request(`${Api.get_client_goods}${goodsId}`, 'GET', null, params)
     .then((res) => {
       if (!Validate.isEmply(res.data) && Validate.isJson(res)) {

@@ -499,9 +499,10 @@ export default {
   .tabbar {
     position: fixed;
     bottom: 0rpx;
-    left: 0;
+    max-width: 430px;
+    margin: 0 auto;
     width: 100%;
-    height: 166rpx;
+    height: 120rpx;
     background-color: #fff;
     box-shadow: 0 4rpx 14rpx rgba(218, 218, 218, 0.5);
     padding: 22rpx 24rpx;

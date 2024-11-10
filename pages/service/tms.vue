@@ -55,7 +55,7 @@
       </view>
     </view>
 
-    <u-divider text="上拉加载" textSize="20" v-if="showEmpty === '1' && !isShowDefaultPage"></u-divider>
+    <u-divider text="下拉加载" textSize="20" v-if="showEmpty === '1' && !isShowDefaultPage"></u-divider>
     <u-loading-icon text="加载中" textSize="20" v-if="showEmpty === '2' && !isShowDefaultPage"></u-loading-icon>
     <u-divider text="到底啦" textSize="20" v-if="showEmpty === '3' && !isShowDefaultPage"></u-divider>
     <u-empty :show="isShowDefaultPage" :text="$t('No data')" margin-top="300"></u-empty>

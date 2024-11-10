@@ -7,7 +7,13 @@
     :closeable="true"
     :closeOnClickOverlay="false"
     @close="close"
-    :customStyle="{ backgroundColor: '#f5f5f5', padding: '40rpx 10rpx' }"
+    :customStyle="{
+      backgroundColor: '#f5f5f5',
+      padding: '40rpx 10rpx',
+      margin: '0 auto',
+      width: '100%',
+      maxWidth: '430px',
+    }"
     :safeAreaInsetBottom="true"
     :overlay="true"
     :overlayStyle="{ background: 'rgba(0, 0, 0, 0.2)', zIndex: '19975' }"

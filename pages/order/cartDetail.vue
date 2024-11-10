@@ -55,7 +55,17 @@
     </view> -->
 
     <!-- 按钮操作区域 -->
-    <view style="position: fixed; bottom: 0rpx; left: 0; width: 100%; padding: 30rpx 10rpx; background-color: #fff">
+    <view
+      style="
+        position: fixed;
+        bottom: 0rpx;
+        max-width: 430px;
+        margin: 0 auto;
+        width: 100%;
+        padding: 30rpx 10rpx;
+        background-color: #fff;
+      "
+    >
       <u-row>
         <u-col :span="8">
           <u-row style="justify-content: flex-end; margin-right: 12rpx">

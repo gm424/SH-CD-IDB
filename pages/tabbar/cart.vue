@@ -253,11 +253,12 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  height: 156rpx;
+  height: 120rpx;
   background-color: #fff;
   position: fixed;
   bottom: 0rpx;
-  left: 0;
+  max-width: 430px;
+  margin: 0 auto;
   padding: 0rpx 20rpx;
   align-items: center;
 }

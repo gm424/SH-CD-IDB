@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view style="max-width: 430px; margin: 0 auto">
     <u-popup
       :show="show"
       @open="open"
@@ -8,10 +8,16 @@
       :closeable="true"
       :closeOnClickOverlay="false"
       @close="close"
-      :customStyle="{ backgroundColor: '#f5f5f5', padding: '40rpx 20rpx' }"
+      :customStyle="{
+        backgroundColor: '#f5f5f5',
+        padding: '40rpx 20rpx',
+        margin: '0 auto',
+        width: '100%',
+        maxWidth: '430px',
+      }"
       :safeAreaInsetBottom="true"
     >
-      <view>
+      <view style="width: 100%; margin: 0 auto; max-width: 430px">
         <view class="detailTitle">
           <img
             :src="chosenSku.skuImg ? chosenSku.skuImg : skuDefaultCover"
