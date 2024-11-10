@@ -168,7 +168,8 @@
             :key="index"
             @click="handleServiceClick(item)"
           >
-            <u-icon :name="item.icon" :color="item.color" size="65"></u-icon>
+            <u-image width="40rpx" height="40rpx" :src="item.logo" mode="aspectFit" :fade="true" duration="450">
+            </u-image>
             <text class="service-name">{{ item.title }}</text>
           </view>
         </view>
@@ -1003,7 +1004,7 @@ export default {
           id: 1,
           title: '综保区',
           type: '',
-          logo: 'https://flagcdn.com/w160/es.png',
+          logo: require('@/static/zongbao.svg'), // 使用static文件夹中的svg
           color: '#FFB5B5',
           features: [{ text: '保税仓储' }, { text: '通关服务' }],
           target: '/pages/differentSku/index',
@@ -1012,7 +1013,7 @@ export default {
           id: 2,
           title: '迈奇',
           type: '',
-          logo: 'https://flagcdn.com/w160/es.png',
+          logo: require('@/static/maiqi.svg'), // 使用static文件夹中的svg
           color: '#95E1D3',
           features: [{ text: '平台运营' }, { text: '全球营销' }],
           target: '/pages/differentSku/index',
@@ -1021,7 +1022,7 @@ export default {
           id: 3,
           title: '云川',
           type: '',
-          logo: 'https://flagcdn.com/w160/es.png',
+          logo: require('@/static/yunchuan.svg'), // 使用static文件夹中的svg
           color: '#FCE38A',
           features: [{ text: '采购管理' }, { text: '物流配送' }],
           target: '/pages/differentSku/index',
@@ -1030,7 +1031,7 @@ export default {
           id: 4,
           title: '易货',
           type: '',
-          logo: 'https://flagcdn.com/w160/es.png',
+          logo: require('@/static/yihuo.svg'), // 使用static文件夹中的svg
           color: '#F38181',
           features: [{ text: '跨境支付' }, { text: '资金安全' }],
           target: '/pages/differentSku/index',
@@ -1040,12 +1041,14 @@ export default {
         {
           title: '物流服务',
           icon: 'car',
+          logo: require('@/static/tms.svg'),
           color: '#4B79E4',
           url: '/pages/service/tms',
         },
         {
           title: '海外仓',
           icon: 'bell',
+          logo: require('@/static/wms.svg'),
           color: '#FF9A9E',
           url: '/pages/service/wms',
         },
@@ -1053,12 +1056,14 @@ export default {
           title: '金融服务',
           icon: 'checkbox-mark',
           color: '#FCE38A',
+          logo: require('@/static/fms.svg'),
           url: '/pages/service/fms',
         },
         {
           title: '数字链转型',
           icon: 'file-text',
           color: '#95E1D3',
+          logo: require('@/static/dtc.svg'),
           url: '/pages/service/dtc',
         },
       ],
@@ -2871,7 +2876,8 @@ export default {
     gap: 8rpx;
     padding: 16rpx;
     transition: all 0.3s ease;
-
+    border-radius: 10px;
+    background: linear-gradient(to bottom, rgba(192, 232, 255, 1), rgba(192, 232, 255, 0.3));
     &:active {
       transform: scale(0.95);
     }
