@@ -16,8 +16,8 @@
     }"
     :safeAreaInsetBottom="true"
     :overlay="true"
-    :overlayStyle="{ background: 'rgba(0, 0, 0, 0.2)', zIndex: '19975' }"
-    zIndex="29975"
+    :overlayStyle="{ background: 'rgba(0, 0, 0, 0.2)', zIndex: '105' }"
+    zIndex="109"
   >
     <view class="container">
       <view class="">
@@ -27,58 +27,42 @@
 
       <u-row class="uRow">
         <u-col :span="4">付款方式</u-col>
-        <u-col :span="8" style="text-align: right">{{ xenum.PAY_METHODS.toText(payMethod) }}</u-col>
+        <u-col :span="8" style="text-align: right">线下支付</u-col>
       </u-row>
       <view class="detailCard">
-        <u-collapse @change="change" @close="closeCollapse" @open="openCollapse">
-          <u-collapse-item
-            :title="xenum.PAY_TYPE.toText(item.pay_type)"
-            v-for="(item, index) in payList"
-            :key="index"
-            :name="item.pay_type"
+        <u-radio-group v-model="pay_model" iconPlacement="right">
+          <u-radio
+            activeColor="#f7ae64"
+            :customStyle="{ marginBottom: '28rpx', fontSize: '20rpx' }"
+            v-for="(it, idx) in payList"
+            :key="idx"
+            :name="it.value"
+            @change="radioChange"
           >
-            <u-radio-group v-model="pay_model" iconPlacement="right">
-              <u-radio
-                activeColor="#f7ae64"
-                :customStyle="{ marginBottom: '28rpx', fontSize: '20rpx' }"
-                v-for="(it, idx) in item.items"
-                :key="idx"
-                :name="it.value"
-                @change="radioChange"
-              >
-                <view style="font-size: 26rpx; font-weight: 600">
-                  <!-- <u-image :src="require('@/static/payment/' + item.img)" width="30rpx" height="30rpx" /> -->
-                  {{ it.name }}
-                </view>
-              </u-radio>
-            </u-radio-group>
-          </u-collapse-item>
-        </u-collapse>
+            <view style="font-size: 26rpx; font-weight: 600">
+              <!-- <u-image :src="require('@/static/payment/' + item.img)" width="30rpx" height="30rpx" /> -->
+              {{ it.name }}
+            </view>
+          </u-radio>
+        </u-radio-group>
 
-        <view> </view>
+        <!-- 线下支付上传凭证 -->
+
+        <view style="color: #a2a2a2; font-size: 26rpx; padding-bottom: 10rpx">上传支付凭证</view>
+        <MyUpload v-model="attachment"></MyUpload>
       </view>
     </view>
 
     <!-- 操作按钮 -->
-    <view
-      style="
-        position: fixed;
-        bottom: 0rpx;
-        
-        width: 100%;
-        margin: 0 auto;
-        max-width: 430px;
-        padding: 30rpx 10rpx;
-      "
-    >
-      <commonButton :text="$t('Immediate payment')" @click="pay"></commonButton>
+    <view style="position: fixed; bottom: 0rpx; width: 100%; margin: 0 auto; max-width: 420px; padding: 30rpx 10rpx">
+      <commonButton text="提交审核" @click="submitAudit"></commonButton>
     </view>
   </u-popup>
 </template>
 
 <script>
 import mixin from '@/mixins/index';
-
+import MyUpload from '@/components/myUpload.vue';
 import commonButton from '@/components/myButton/commonButton.vue';
 import Payment from '@/widgets/payment/payment.vue';
 import xenum from '@/common/utils/XEnum.js';
@@ -89,15 +73,18 @@ export default {
   data() {
     return {
       pay_type: 'INDONESIA_PAY',
-      pay_model: 'DANA',
+      pay_model: 'offLine',
       xenum: xenum,
-      payList: [],
+      payList: [{ value: 'offLine', name: '线下支付' }],
+      attachment: [],
     };
   },
   components: {
     commonButton,
     Payment,
+    MyUpload,
   },
+
   props: {
     totalPrice: {
       type: Number | String,
@@ -133,6 +120,42 @@ export default {
       this.pay_type = e;
       console.log('openCollapse', e);
     },
+    submitAudit() {
+      let that = this;
+      orderServer.offLinePayment(this.sn, this.attachment, {
+        success(res) {
+          if (res.success) {
+            uni.showToast({
+              title: '提交审核成功！',
+              icon: 'none',
+              duration: 2500,
+            });
+            that.show = false;
+            setTimeout(() => {
+              uni.$u.route({
+                url: '/pages/order/orderList',
+              });
+            }, 500);
+          } else {
+            console.log('失败', res.msg);
+            uni.showToast({
+              title: res.msg,
+              icon: 'none',
+              duration: 2500,
+            });
+            that.show = false;
+          }
+        },
+        fail(err) {
+          console.log('err', err);
+          uni.showToast({
+            title: err.msg,
+            icon: 'none',
+            duration: 2500,
+          });
+        },
+      });
+    },
     pay() {
       let data = {
         payment_method_code: this.payMethod,
@@ -167,28 +190,28 @@ export default {
     getConstatnts() {
       let that = this;
 
-      orderServer.getPaymentConstants({
-        success(res) {
-          console.log('獲取參數');
-          if (res.success) {
-            that.payList = Object.keys(res.data[that.payMethod]).map((item) => {
-              return {
-                pay_type: item,
-                items: Object.keys(res.data[that.payMethod][item]).map((it) => {
-                  return {
-                    name: it,
-                    value: res.data[that.payMethod][item][it],
-                  };
-                }),
-              };
-            });
-            console.log('獲取參數后', that.payList);
-          }
-        },
-        fail(err) {
-          console.log(err);
-        },
-      });
+      // orderServer.getPaymentConstants({
+      //   success(res) {
+      //     console.log('獲取參數');
+      //     if (res.success) {
+      //       that.payList = Object.keys(res.data[that.payMethod]).map((item) => {
+      //         return {
+      //           pay_type: item,
+      //           items: Object.keys(res.data[that.payMethod][item]).map((it) => {
+      //             return {
+      //               name: it,
+      //               value: res.data[that.payMethod][item][it],
+      //             };
+      //           }),
+      //         };
+      //       });
+      //       console.log('獲取參數后', that.payList);
+      //     }
+      //   },
+      //   fail(err) {
+      //     console.log(err);
+      //   },
+      // });
     },
     addBankCard() {
       uni.$u.route({
@@ -208,7 +231,6 @@ export default {
   width: 100%;
 }
 .detailCard {
-  background-color: #f5f5f5;
   border-radius: 20rpx;
   padding: 20rpx 20rpx;
   margin-bottom: 120rpx;

@@ -1,138 +1,154 @@
 <template>
-  <view class="orderDetailContainer">
-    <!-- 状态 -->
-    <view class="statusContainer">
-      {{ orderDetailList[0] ? xenum.ORDER_STATUS.toText(orderDetailList[0].status) : '' }}
-    </view>
-    <!-- 物流轨迹 -->
-    <view class="orderCard" v-if="orderDetails.status === 5 || orderDetails.status === 6 || orderDetails.status === 7">
-      <view
-        v-if="trakingList.length !== 0"
-        style="display: flex; justify-content: flex-end; align-items: center"
-        @click="queryLogisticsTrack(orderDetails.shipment.sn)"
-      >
-        <span style="color: #f59a23">详细信息</span>
-        <u-icon name="arrow-right" size="38" color="#f59a23"></u-icon>
+  <view>
+    <view class="orderDetailContainer">
+      <!-- 状态 -->
+      <view class="statusContainer">
+        {{ orderDetailList[0] ? xenum.ORDER_STATUS.toText(orderDetailList[0].status) : '' }}
       </view>
-
-      <u-empty
-        mode="data"
-        icon="http://cdn.uviewui.com/uview/empty/data.png"
-        text="暂无物流信息"
-        v-if="trakingList.length === 0"
+      <!-- 物流轨迹 -->
+      <view
+        class="orderCard"
+        v-if="orderDetails.status === 5 || orderDetails.status === 6 || orderDetails.status === 7"
       >
-      </u-empty>
-      <u-steps current="0" direction="column" :dot="true" activeColor="#f59a23" iconSize="55" v-else>
-        <u-steps-item
-          :title="item.title"
-          :desc="item.desc"
-          v-for="(item, index) in trakingList"
-          :key="index"
-        ></u-steps-item>
-      </u-steps>
-    </view>
-    <view v-for="(orderDetails, index) in orderDetailList" :key="index">
-      <!-- 详情 -->
-      <view class="orderCard" @click="routeOrderDetail(orderDetails)">
-        <u-row gutter="20" class="uRow">
-          <u-col :span="12">
-            <u-row>
-              <u-icon name="home" size="38"></u-icon>
-              <text style="font-weight: 600">{{ orderDetails.store.name }}</text>
-            </u-row>
-          </u-col>
-        </u-row>
-        <!-- 地址 -->
-        <view class="addressCard">
-          <view class="address">
-            <u-icon name="map-fill" color="#f7ae64"></u-icon>
-            <view
-              style="
-                font-size: 26rpx;
-                font-weight: 600;
-                display: flex;
+        <view
+          v-if="trakingList.length !== 0"
+          style="display: flex; justify-content: flex-end; align-items: center"
+          @click="queryLogisticsTrack(orderDetails.shipment.sn)"
+        >
+          <span style="color: #f59a23">详细信息</span>
+          <u-icon name="arrow-right" size="38" color="#f59a23"></u-icon>
+        </view>
 
-                margin: 0rpx 10rpx;
-                flex-direction: column;
-              "
-            >
-              <view>{{ orderDetails.address.shipping_contactName }} {{ orderDetails.address.shipping_address_1 }}</view>
-              <view>{{ orderDetails.address.shipping_phone }}</view>
+        <u-empty
+          mode="data"
+          icon="http://cdn.uviewui.com/uview/empty/data.png"
+          text="暂无物流信息"
+          v-if="trakingList.length === 0"
+        >
+        </u-empty>
+        <u-steps current="0" direction="column" :dot="true" activeColor="#f59a23" iconSize="55" v-else>
+          <u-steps-item
+            :title="item.title"
+            :desc="item.desc"
+            v-for="(item, index) in trakingList"
+            :key="index"
+          ></u-steps-item>
+        </u-steps>
+      </view>
+      <view v-for="(orderDetails, index) in orderDetailList" :key="index">
+        <!-- 详情 -->
+        <view class="orderCard" @click="routeOrderDetail(orderDetails)">
+          <u-row gutter="20" class="uRow">
+            <u-col :span="12">
+              <u-row>
+                <u-icon name="home" size="38"></u-icon>
+                <text style="font-weight: 600">{{ orderDetails.store.name }}</text>
+              </u-row>
+            </u-col>
+          </u-row>
+          <!-- 地址 -->
+          <view class="addressCard">
+            <view class="address">
+              <u-icon name="map-fill" color="#f7ae64"></u-icon>
+              <view
+                style="
+                  font-size: 26rpx;
+                  font-weight: 600;
+                  display: flex;
+
+                  margin: 0rpx 10rpx;
+                  flex-direction: column;
+                "
+              >
+                <view
+                  >{{ orderDetails.address.shipping_contactName }} {{ orderDetails.address.shipping_address_1 }}</view
+                >
+                <view>{{ orderDetails.address.shipping_phone }}</view>
+              </view>
             </view>
           </view>
+          <u-row gutter="20" class="uRow" v-for="(item, index) in orderDetails.items" :key="index">
+            <u-col :span="2"><img :src="item.sku ? item.sku.images[0] : ''" style="width: 100%" /></u-col>
+            <u-col :span="10">
+              <u-row style="font-weight: 600; font-size: 28rpx; padding: 10rpx 0rpx">
+                <u-col :span="9">
+                  {{ item.name }}
+                </u-col>
+                <u-col :span="3" style="text-align: right"> ￥{{ item.sale_price }} </u-col>
+              </u-row>
+              <u-row style="color: #b1b1b4; font-size: 26rpx; padding: 10rpx 0rpx">
+                <u-col :span="8">
+                  {{ item.variantsChange.join(';') }}
+                </u-col>
+                <u-col :span="4" style="text-align: right"> x {{ item.quantity }} </u-col>
+              </u-row>
+            </u-col>
+          </u-row>
+          <u-row class="uRow uRowItem">
+            <u-col :span="4"> 商品总价： </u-col>
+            <u-col :span="8" style="text-align: right"> ￥{{ orderDetails.goods_amount }} </u-col>
+          </u-row>
+          <u-row class="uRow uRowItem">
+            <u-col :span="4"> 运费： </u-col>
+            <u-col :span="8" style="text-align: right">
+              ￥{{ orderDetails.freight_amount ? orderDetails.freight_amount : 0 }}
+            </u-col>
+          </u-row>
+          <u-row class="uRow uRowItem">
+            <u-col :span="4"> 实付款： </u-col>
+            <u-col :span="8" style="text-align: right; color: #f7ae64; font-weight: 600">
+              ￥{{ orderDetails.goods_amount + orderDetails.freight_amount }}
+            </u-col>
+          </u-row>
+          <u-row class="uRow uRowItem">
+            <u-col :span="4"> 订单编号： </u-col>
+            <u-col :span="8" style="text-align: right; color: #b1b1b4"> {{ orderDetails.sn }} </u-col>
+          </u-row>
+          <u-row class="uRow uRowItem">
+            <u-col :span="4"> 创建时间： </u-col>
+            <u-col :span="8" style="text-align: right; color: #b1b1b4; font-size: 20rpx">
+              {{ handleDate(orderDetails.created_time) }}
+            </u-col>
+          </u-row>
         </view>
-        <u-row gutter="20" class="uRow" v-for="(item, index) in orderDetails.items" :key="index">
-          <u-col :span="2"><img :src="item.sku ? item.sku.images[0] : ''" style="width: 100%" /></u-col>
-          <u-col :span="10">
-            <u-row style="font-weight: 600; font-size: 28rpx; padding: 10rpx 0rpx">
-              <u-col :span="9">
-                {{ item.name }}
-              </u-col>
-              <u-col :span="3" style="text-align: right"> ￥{{ item.sale_price }} </u-col>
-            </u-row>
-            <u-row style="color: #b1b1b4; font-size: 26rpx; padding: 10rpx 0rpx">
-              <u-col :span="8">
-                {{ item.variantsChange.join(';') }}
-              </u-col>
-              <u-col :span="4" style="text-align: right"> x {{ item.quantity }} </u-col>
-            </u-row>
-          </u-col>
-        </u-row>
-        <u-row class="uRow uRowItem">
-          <u-col :span="4"> 商品总价： </u-col>
-          <u-col :span="8" style="text-align: right"> ￥{{ orderDetails.goods_amount }} </u-col>
-        </u-row>
-        <u-row class="uRow uRowItem">
-          <u-col :span="4"> 运费： </u-col>
-          <u-col :span="8" style="text-align: right">
-            ￥{{ orderDetails.freight_amount ? orderDetails.freight_amount : 0 }}
-          </u-col>
-        </u-row>
-        <u-row class="uRow uRowItem">
-          <u-col :span="4"> 实付款： </u-col>
-          <u-col :span="8" style="text-align: right; color: #f7ae64; font-weight: 600">
-            ￥{{ orderDetails.goods_amount + orderDetails.freight_amount }}
-          </u-col>
-        </u-row>
-        <u-row class="uRow uRowItem">
-          <u-col :span="4"> 订单编号： </u-col>
-          <u-col :span="8" style="text-align: right; color: #b1b1b4"> {{ orderDetails.sn }} </u-col>
-        </u-row>
-        <u-row class="uRow uRowItem">
-          <u-col :span="4"> 创建时间： </u-col>
-          <u-col :span="8" style="text-align: right; color: #b1b1b4; font-size: 20rpx">
-            {{ handleDate(orderDetails.created_time) }}
-          </u-col>
-        </u-row>
       </view>
-    </view>
 
-    <!-- 支付方式 -->
-    <view class="detailCard" v-if="orderDetails.status === 2">
-      <view style="color: #a2a2a2; font-size: 26rpx; padding-bottom: 10rpx">支付工具</view>
-      <u-radio-group v-model="radiovalue" iconPlacement="right" style="padding: 20rpx 0rpx">
-        <u-radio
-          activeColor="#f7ae64"
-          :customStyle="{ marginBottom: '28rpx', fontSize: '20rpx' }"
-          v-for="(item, index) in paymentList"
-          :key="index"
-          :name="item.value"
-          @change="radioChange"
-        >
-          <view style="font-size: 26rpx; font-weight: 600; display: flex; flex-direction: row">
-            <!-- <u-image width="30rpx" height="30rpx" :src="require('@/static/payment/' + item.img)" /> -->
-            <view style="margin-left: 10rpx">{{ item.name }}</view>
-          </view>
-        </u-radio>
-      </u-radio-group>
-    </view>
+      <!-- 支付方式 -->
+      <view class="detailCard" v-if="orderDetails.status === 2">
+        <view style="color: #a2a2a2; font-size: 26rpx; padding-bottom: 10rpx">支付工具</view>
+        <u-radio-group v-model="radiovalue" iconPlacement="right" style="padding: 20rpx 0rpx">
+          <u-radio
+            activeColor="#f7ae64"
+            :customStyle="{ marginBottom: '28rpx', fontSize: '20rpx' }"
+            v-for="(item, index) in paymentList"
+            :key="index"
+            :name="item.value"
+            @change="radioChange"
+          >
+            <view style="font-size: 26rpx; font-weight: 600; display: flex; flex-direction: row">
+              <!-- <u-image width="30rpx" height="30rpx" :src="require('@/static/payment/' + item.img)" /> -->
+              <view style="margin-left: 10rpx">{{ item.name }}</view>
+            </view>
+          </u-radio>
+        </u-radio-group>
+      </view>
 
-    <!-- 线下支付上传凭证 -->
-    <view class="detailCard" v-if="orderDetails.status === 2 && radiovalue === 'offLine'">
-      <view style="color: #a2a2a2; font-size: 26rpx; padding-bottom: 10rpx">上传支付凭证</view>
-      <MyUpload v-model="attachment"></MyUpload>
-    </view>
+      <!-- 线下支付上传凭证 -->
+      <view class="detailCard" v-if="orderDetails.status === 2 && radiovalue === 'offLine'">
+        <view style="color: #a2a2a2; font-size: 26rpx; padding-bottom: 10rpx">上传支付凭证</view>
+        <MyUpload v-model="attachment"></MyUpload>
+      </view>
 
+      <bankCardModal
+        ref="bankCardModal"
+        v-if="show"
+        :totalPrice="totalPrice"
+        :payMethod="radiovalue"
+        :sn="orderDetailList[0] ? orderDetailList[0].sn : ''"
+        :show="show"
+        @close="close"
+      ></bankCardModal>
+    </view>
     <!-- 操作按钮 -->
     <!-- 待付款 选择 线下支付 -->
     <view
@@ -247,15 +263,6 @@
         </u-col>
       </u-row>
     </view>
-    <bankCardModal
-      ref="bankCardModal"
-      v-if="show"
-      :totalPrice="totalPrice"
-      :payMethod="radiovalue"
-      :sn="orderDetailList[0] ? orderDetailList[0].sn : ''"
-      :show="show"
-      @close="close"
-    ></bankCardModal>
   </view>
 </template>
 

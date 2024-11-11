@@ -99,15 +99,28 @@ uni-page {
 }
 
 /* 确保导航栏和tabbar遵循最大宽度 */
-uni-tabbar,
+.uni-page-head {
+  max-width: 430px !important;
+  width: 100% !important;
+  z-index: 9 !important;
+  margin: 0 auto !important ;
+}
 uni-page-head {
+  max-width: 430px !important;
+  width: 100% !important;
+  z-index: 9 !important;
+  margin: 0 auto !important ;
+}
+uni-tabbar {
+  bottom: 0;
+
   max-width: 430px !important;
   left: 50% !important;
   transform: translateX(-50%);
   position: fixed !important;
-}
-uni-tabbar {
-  bottom: 0;
+  // top: 0;
+  width: 100%;
+  z-index: 9;
 }
 /* 修改body样式以使内容居中 */
 body {

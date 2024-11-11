@@ -177,7 +177,7 @@ export default {
             trigger: ['blur', 'change'],
           },
           {
-            pattern: /^1[3456789]\d{9}$/,
+            pattern: /^.{2}$/,
             message: '请输入正确的国家二字码，长度为2',
             trigger: ['blur', 'change'],
           },

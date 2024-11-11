@@ -9,7 +9,6 @@
     <view class="form-container">
       <view class="form-header">
         <text class="form-title">欢迎成为数城科技供应商</text>
-        <text class="form-subtitle">Professional Services</text>
       </view>
 
       <u--form
@@ -26,6 +25,14 @@
         :model="personInfoForm"
         ref="form1"
       >
+        <u-form-item label="业务类型" prop="type" labelWidth="230" labelPosition="top">
+          <my-dropdown
+            v-model="personInfoForm.type"
+            :options="businessTypes"
+            :placeholder="selectedType"
+            @change="handleBusinessTypeChange"
+          ></my-dropdown>
+        </u-form-item>
         <u-form-item label="公司名称" prop="company_name" labelWidth="230" labelPosition="top">
           <u--input
             fontSize="28rpx"
@@ -68,15 +75,6 @@
               <u-icon name="phone" size="36rpx" color="#2E5BB3"></u-icon>
             </template>
           </u--input>
-        </u-form-item>
-
-        <u-form-item label="业务类型" prop="type" labelWidth="230" labelPosition="top">
-          <my-dropdown
-            v-model="personInfoForm.type"
-            :options="businessTypes"
-            :placeholder="selectedType"
-            @change="handleBusinessTypeChange"
-          ></my-dropdown>
         </u-form-item>
 
         <u-form-item label="备注" prop="remark" labelWidth="230" labelPosition="top">
@@ -169,7 +167,7 @@ export default {
       },
       oldUserInfo: {},
       disabled: false,
-      selectedType: '',
+      selectedType: '请选择业务类型',
       businessTypes: [
         {
           text: '金融',
@@ -212,9 +210,13 @@ export default {
           IndexServer.applySupplier(params, {
             success(res) {
               uni.$u.toast(res.msg);
+
+              that.personInfoForm.attachment = [];
             },
             fail(error) {
               uni.$u.toast(error);
+
+              that.personInfoForm.attachment = [];
             },
           });
         })

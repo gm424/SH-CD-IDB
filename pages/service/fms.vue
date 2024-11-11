@@ -9,7 +9,6 @@
     <view class="form-container">
       <view class="form-header">
         <text class="form-title">申请金融服务</text>
-        <text class="form-subtitle">Professional Services</text>
       </view>
 
       <u--form

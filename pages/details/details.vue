@@ -165,7 +165,7 @@
           <u-icon name="home" size="40rpx" color="#666"></u-icon>
           <text>店铺</text>
         </view>
-        <view class="action-item cart" @click="AddToCart()">
+        <view class="action-item cart" @click="routeToCart()">
           <u-icon name="shopping-cart" size="40rpx" color="#666"></u-icon>
           <text>购物车</text>
         </view>
@@ -745,6 +745,11 @@ export default {
           icon: 'none',
         });
       }
+    },
+    routeToCart() {
+      uni.switchTab({
+        url: '/pages/tabbar/cart',
+      });
     },
     // sku确认事件
     skuConfirm(e) {

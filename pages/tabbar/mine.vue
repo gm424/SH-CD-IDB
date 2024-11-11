@@ -3,8 +3,8 @@
     <view class="avatar">
       <u-avatar :src="userInfo.avatar" size="200rpx" style="margin-top: 20rpx"></u-avatar>
       <view class="name">
-        <view class="name_text">
-          {{ userInfo.username }}
+        <view class="name_text" @click="routeLogin" style="cursor: pointer">
+          {{ userInfo.username ? userInfo.username : '未登录' }}
         </view>
         <image @click="routerInformation" class="name_icon" :src="button"></image>
       </view>
@@ -119,7 +119,8 @@ export default {
     };
   },
   onShow() {
-    this.userInfo = JSON.parse(uni.getStorageSync('userInfo'));
+    this.userInfo = uni.getStorageSync('userInfo') ? JSON.parse(uni.getStorageSync('userInfo')) : {};
+    console.log('this.userInfo', this.userInfo);
     this.sortList = [];
     this.pageNum = 1;
     // this.getClientList();
@@ -161,6 +162,12 @@ export default {
           from: 'mine',
         },
       });
+    },
+    routeLogin() {
+      console.log('点击', this.userInfo.username);
+      if (!this.userInfo.username) {
+        uni.$u.route('/pages/login/login');
+      }
     },
     routerInquiryManage() {
       uni.$u.route('/pages/inquiry/inquiry_manage');
@@ -229,7 +236,7 @@ export default {
 .content {
   min-height: 100vh;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-
+  padding-top: 20px;
   // 移除原有的蓝色背景
   &::before {
     display: none;
