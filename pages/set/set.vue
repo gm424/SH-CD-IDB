@@ -74,6 +74,10 @@ export default {
             text: this.$t('locale.en'),
             code: 'en',
           },
+          {
+            text: this.$t('locale.ru-RU'),
+            code: 'ru-RU',
+          },
         ],
       ];
     },
@@ -131,7 +135,13 @@ export default {
   },
   onLoad() {
     let applicationLocale = uni.getLocale();
-    this.language = applicationLocale === 'zh-Hans' ? this.$t('locale.zh-hans') : this.$t('locale.en');
+
+    this.language =
+      applicationLocale === 'zh-Hans'
+        ? this.$t('locale.zh-hans')
+        : applicationLocale === 'ru-RU'
+        ? this.$t('locale.ru-RU')
+        : this.$t('locale.en');
     if (!uni.$u.test.isEmpty(uni.getStorageSync('currency'))) {
       this.currencyText = this.$t(uni.getStorageSync('currency'));
       this.currency = uni.getStorageSync('currency');

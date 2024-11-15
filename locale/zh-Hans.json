@@ -22,7 +22,6 @@
   "schema.name": "姓名",
   "schema.add": "新增",
   "schema.add-success": "新增成功",
-
   "sign.sign": "注册",
   "protocol.protocol": "隐私协议",
   "details.details": "产品详情",
@@ -32,7 +31,6 @@
   "bell.bell": "服务通知",
   "search.search": "搜索",
   "customerService.customerService": "客服消息",
-
   "tabbar.button": "立即查看",
   "tabbar.home": "首页",
   "failedToLoad": "加载失败",
@@ -64,7 +62,6 @@
   "No data": "没有数据哟",
   "Product category loading failed": "产品分类加载失效",
   "all": "全部",
-
   "tabbar.message": "消息中心",
   "tabbar.cart": "购物车",
   "tabbar.mine": "我的",
@@ -93,10 +90,8 @@
   "AED": "阿联酋迪拉姆",
   "JPY": "日币",
   "HKD": "港元",
-
   "boutique.boutique": "精品馆",
   "After tax": "税后",
-
   "certified.certified": "企业认证",
   "Company Name": "企业名称",
   "Please enter company name": "请输入企业名称",
@@ -123,7 +118,6 @@
   "E-mail format is incorrect": "邮箱格式不正确",
   "Country loading failed": "所属国家加载失效",
   "confirm password": "确认密码",
-
   "collect.collect": "我的收藏",
   "delete": "删除",
   "Confirm": "确定",
@@ -146,7 +140,6 @@
   "Inventory": "库存",
   "Insufficient inventory": "库存不足",
   "Please select complete product information": "请选择完整的商品信息",
-
   "factory.factory": "源头工厂",
   "Into the store": "进店",
   "Please enter a keyword": "请输入关键词",
@@ -164,9 +157,7 @@
   "Please enter confirm password": "请输入确认密码",
   "Please fill in the feedback content": "请填写反馈内容",
   "uploading": "上传中",
-
   "focus.focus": "我的关注",
-
   "forget.forget": "忘记密码",
   "email address": "邮箱账号",
   "enter confirmation code": "输入验证码",
@@ -185,7 +176,6 @@
   "startText": "获取验证码",
   "changeText": "X秒重新获取",
   "endText": "重新获取",
-
   "information.information": "详细资料",
   "nickName": "昵称",
   "Please enter a nickname": "请填写昵称",
@@ -193,10 +183,8 @@
   "Verification passed": "校验通过",
   "Upload successful": "上传成功",
   "Upload failed": "上传失败",
-
   "forget.entrance": "验证方式",
   "Email verification and retrieval": "邮箱验证找回",
-
   "inquiry.inquiry": "询价",
   "product name": "产品名称",
   "please input the product name": "请输入产品名称",
@@ -220,14 +208,12 @@
   "This product has no classification yet": "该产品暂无分类",
   "tax included": "含税",
   "Excluding tax": "不含税",
-
   "inquiry.manage": "询价管理",
   "To be quoted": "待报价",
   "Quoted": "已报价",
   "expired": "已过期",
   "Quotation as of": "报价截至",
   "details": "详细信息",
-
   "order.orderList": "我的订单",
   "Inquiry details": "询价详情",
   "Current order status": "当前订单状态",
@@ -255,7 +241,6 @@
   "Please enter password": "请输入密码",
   "Please first": "请先阅读并同意《会员协议》与《隐私政策》",
   "Not open yet": "暂未开放",
-
   "openShop.openShop": "开店申请",
   "Activation process": "开通流程",
   "User center for enterprise authentication": "用户中心进行企业认证",
@@ -270,18 +255,14 @@
   "reject": "拒绝",
   "Resubmit": "重新提交",
   "pass": "通过",
-
   "order.order": "获取订单",
   "quantity": "数量",
   "Quotation request": "报价要求",
-
   "Connect to customer service center": "连接客服中心",
-
   "shop.shop": "企业店铺",
   "Already following": "已关注",
   "focus on": "关注",
   "Company Introduction": "企业介绍",
-
   "set password": "设置密码",
   "register account": "注册账户",
   "Please enter a nickname": "请输入昵称",
@@ -289,9 +270,40 @@
   "Membership Agreement": "会员协议",
   "Privacy Policy": "隐私政策",
   "Legal Notices": "法律声明",
-
   "cancelText": "取消",
   "confirmText": "确认",
-
-  "More": "更多"
+  "More": "更多",
+  "address.manage": "地址管理",
+  "Apply for admission": "申请入驻",
+  "Logistics service": "物流服务",
+  "Warehousing service": "仓储服务",
+  "Financial service": "金融服务",
+  "Digital transformation": "数字化转型",
+  "Product list": "产品列表",
+  "Digital city Technology": "数城科技",
+  "Add bank card": "添加银行卡",
+  "Privacy agreement": "隐私协议",
+  "Order fulfillment": "订单完成",
+  "Business partner": "合作伙伴",
+  "Join hands to create a new cross-border future": "携手共创跨境新未来",
+  "One-stop service": "一站式服务",
+  "Convenient tools to help development": "便捷工具，助力发展",
+  "Supplier placement": "供应商入驻",
+  "Select good quality things": "精选优质好物",
+  "Personal payment": "人付款",
+  "Industry domestic information content playback": "行业内资讯内容播放",
+  "European station": "欧洲站",
+  "The Middle East": "中东",
+  "Russia": "俄罗斯",
+  "Mexico": "墨西哥",
+  "Comprehensive protection area": "综保区",
+  "Maitsch": "迈奇",
+  "Yunchuan": "云川",
+  "barter": "易货",
+  "Customs declaration": "海关申报",
+  "Storage information management": "库容信息管理",
+  "Clearing channel": "结算通道",
+  "Integral credit": "积分信用",
+  "Logistics monitoring": "物流监测",
+  "Overseas position": "海外仓"
 }

@@ -72,6 +72,7 @@
         <u-col :span="4" v-if="selectedStatus === '2'">
           <u-button :customStyle="customPayBtn" @click="payNow(item)">立即付款</u-button></u-col
         >
+
         <u-col :span="4" v-if="selectedStatus === '4'">
           <u-button :customStyle="customPayBtn" @click="urgeNow(item)">催发货</u-button></u-col
         >

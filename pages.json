@@ -195,7 +195,7 @@
     {
       "path": "pages/order/complete",
       "style": {
-        "navigationBarTitleText": "订单完成"
+        "navigationBarTitleText": "%Order fulfillment%"
       }
     },
 
@@ -220,7 +220,7 @@
     {
       "path": "pages/orderTms/complete",
       "style": {
-        "navigationBarTitleText": "订单完成"
+        "navigationBarTitleText": "%Order fulfillment%"
       }
     },
     {
@@ -245,13 +245,13 @@
     {
       "path": "pages/orderWms/complete",
       "style": {
-        "navigationBarTitleText": "订单完成"
+        "navigationBarTitleText": "%Order fulfillment%"
       }
     },
     {
       "path": "pages/protocol/protocol",
       "style": {
-        "navigationBarTitleText": "隐私协议"
+        "navigationBarTitleText": "%Privacy agreement%"
       }
     },
     {
@@ -306,7 +306,7 @@
     {
       "path": "pages/bankCard/bankCard",
       "style": {
-        "navigationBarTitleText": "添加银行卡"
+        "navigationBarTitleText": "%Add bank card%"
       }
     },
     {
@@ -374,7 +374,7 @@
     {
       "path": "pages/Address/index",
       "style": {
-        "navigationBarTitleText": "地址管理",
+        "navigationBarTitleText": "%address.manage%",
         "enablePullDownRefresh": true
       }
     },
@@ -388,49 +388,49 @@
     {
       "path": "pages/Admission/index",
       "style": {
-        "navigationBarTitleText": "申请入驻",
+        "navigationBarTitleText": "%Apply for admission%",
         "enablePullDownRefresh": true
       }
     },
     {
       "path": "pages/service/tms",
       "style": {
-        "navigationBarTitleText": "物流服务",
+        "navigationBarTitleText": "%Logistics service%",
         "enablePullDownRefresh": true
       }
     },
     {
       "path": "pages/service/wms",
       "style": {
-        "navigationBarTitleText": "仓储服务",
+        "navigationBarTitleText": "%Warehousing service%",
         "enablePullDownRefresh": true
       }
     },
     {
       "path": "pages/service/tmsDetail",
       "style": {
-        "navigationBarTitleText": "详情",
+        "navigationBarTitleText": "%Details%",
         "enablePullDownRefresh": true
       }
     },
     {
       "path": "pages/service/fms",
       "style": {
-        "navigationBarTitleText": "金融服务",
+        "navigationBarTitleText": "%Financial service%",
         "enablePullDownRefresh": true
       }
     },
     {
       "path": "pages/service/dtc",
       "style": {
-        "navigationBarTitleText": "数字化转型",
+        "navigationBarTitleText": "%Digital transformation%",
         "enablePullDownRefresh": true
       }
     },
     {
       "path": "pages/differentSku/index",
       "style": {
-        "navigationBarTitleText": "产品列表"
+        "navigationBarTitleText": "%Product list%"
       }
     }
   ],
@@ -459,7 +459,7 @@
         "pagePath": "pages/tabbar/find",
         "iconPath": "static/tabbar/find/find0.png",
         "selectedIconPath": "static/tabbar/find/find.png",
-        "text": "分类"
+        "text": "%tabbar.classify%"
       },
       {
         "pagePath": "pages/tabbar/message",
